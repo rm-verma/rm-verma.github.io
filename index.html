@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ram Milan Kumar Verma — Guidance &amp; Control of Autonomous Vehicles</title>
+<title>Ram Milan Kumar Verma</title>
 <meta name="description" content="Ram Milan Kumar Verma — Ph.D. researcher in Aerospace Engineering at IIT Bombay, working on guidance and control of autonomous surface, aerial and underwater vehicles.">
 <meta name="author" content="Ram Milan Kumar Verma">
 <meta property="og:title" content="Ram Milan Kumar Verma">
@@ -110,7 +110,7 @@ a{color:inherit}
 
 /* Vanta full-page background; sections get opaque paper bg */
 #vanta-bg{position:fixed;inset:0;z-index:-1}
-body{background:transparent;padding-top:62px}
+body{background:transparent;padding-top:80px}
 section{background:var(--paper)} footer{background:var(--paper)}
 
 .station{display:flex;flex-wrap:wrap;align-items:baseline;gap:.55rem 1.1rem;color:var(--sea);margin-bottom:clamp(20px,3.4vw,38px)}
@@ -376,35 +376,23 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
 .fnote .g{transition:color .3s ease}
 
 /* ── top navigation bar ──────────────────────────────────────────── */
-.topnav{position:fixed;top:0;left:0;right:0;z-index:45;height:62px;background:rgba(255,255,255,0.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .topnav{background:rgba(6,24,40,0.94)}}
-:root[data-theme="dark"] .topnav{background:rgba(6,24,40,0.94)}
+.topnav{position:fixed;top:0;left:0;right:0;z-index:45;height:80px;background:#053d6e;border-bottom:1px solid rgba(255,255,255,.12)}
 .tnav{max-width:1260px;margin:0 auto;padding:0 clamp(14px,2.5vw,40px);height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.tnav-brand{font-family:var(--display);font-size:1.45rem;font-weight:400;letter-spacing:-.018em;text-decoration:none;color:var(--ink);white-space:nowrap;font-variation-settings:"SOFT" 8,"WONK" 1}
+.tnav-brand{font-family:var(--display);font-size:2.9rem;font-weight:400;letter-spacing:-.018em;text-decoration:none;color:#ffffff;white-space:nowrap;font-variation-settings:"SOFT" 8,"WONK" 1}
 .tnav-links{list-style:none;margin:0;padding:0;display:flex;align-items:center}
-.tnav-links li a{display:block;padding:8px 11px;font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);transition:color .25s ease}
-.tnav-links li a:hover,.tnav-links li.on a{color:var(--copper)}
+.tnav-links li a{display:block;padding:8px 11px;font-family:var(--mono);font-size:1.26rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.7);transition:color .25s ease}
+.tnav-links li a:hover,.tnav-links li.on a{color:#ffffff}
 .tnav-right{display:flex;align-items:center;gap:8px;flex:none}
-.tnav-theme{font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;background:none;border:1px solid var(--rule);color:var(--ink-faint);padding:5px 10px;cursor:pointer;transition:color .25s ease,border-color .25s ease;white-space:nowrap}
-.tnav-theme:hover{color:var(--copper);border-color:var(--copper)}
-.tnav-toggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);font-size:1.1rem;width:34px;height:34px;cursor:pointer;align-items:center;justify-content:center;flex:none}
+.tnav-theme{font-family:var(--mono);font-size:1.16rem;letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);padding:6px 12px;cursor:pointer;transition:color .25s ease,border-color .25s ease;white-space:nowrap}
+.tnav-theme:hover{color:#ffffff;border-color:#ffffff}
+.tnav-toggle{display:none;background:none;border:1px solid rgba(255,255,255,.3);color:#ffffff;font-size:1.4rem;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center;flex:none}
 @media(max-width:820px){
-  .tnav-links{display:none;position:fixed;top:62px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--rule);flex-direction:column;padding:12px var(--gut);gap:2px;z-index:44;overflow-y:auto}
+  .tnav-links{display:none;position:fixed;top:80px;left:0;right:0;background:#053d6e;border-bottom:1px solid rgba(255,255,255,.12);flex-direction:column;padding:12px var(--gut);gap:2px;z-index:44;overflow-y:auto}
   .tnav-links.open{display:flex}
-  .tnav-links li a{padding:11px 4px;font-size:.68rem}
+  .tnav-links li a{padding:11px 4px;font-size:1.1rem}
   .tnav-toggle{display:flex}
 }
 
-/* ── hero decorative silhouettes ────────────────────────────── */
-.hero-deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.hero-deco>svg{position:absolute;color:var(--ink);opacity:.10;fill:none;stroke:currentColor}
-@keyframes decoFloat{0%,100%{transform:translateY(0) rotate(0deg)}30%{transform:translateY(-14px) rotate(2.5deg)}65%{transform:translateY(9px) rotate(-1.8deg)}}
-@keyframes decoFloatR{0%,100%{transform:translateY(0) rotate(0deg)}40%{transform:translateY(11px) rotate(-2deg)}75%{transform:translateY(-10px) rotate(1.5deg)}}
-.deco-q1{width:82px;height:82px;top:9%;left:5%;animation:decoFloat 22s ease-in-out infinite}
-.deco-q2{width:58px;height:58px;top:18%;right:9%;animation:decoFloatR 28s ease-in-out infinite 2s}
-.deco-q3{width:48px;height:48px;bottom:24%;left:17%;animation:decoFloat 19s ease-in-out infinite 6s}
-.deco-u1{width:136px;height:52px;bottom:16%;right:5%;animation:decoFloatR 26s ease-in-out infinite 1s}
-.deco-u2{width:100px;height:38px;top:38%;left:1%;animation:decoFloat 32s ease-in-out infinite 9s;opacity:.07}
 
 /* ── hero interior elements ──────────────────────────────────── */
 .station{justify-content:center;margin-bottom:clamp(16px,2.2vw,26px)}
@@ -485,90 +473,6 @@ section:first-child{border-top:none}
 
 <!-- ══════════════════════════ HERO ══════════════════════════ -->
 <header class="hero">
-  <!-- decorative silhouettes: quadcopters + marine vessels -->
-  <div class="hero-deco" aria-hidden="true">
-    <!-- Quadcopter 1 (large, top-left) -->
-    <svg class="deco-q1" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="1.8" stroke-linecap="round">
-      <line x1="32" y1="32" x2="12" y2="12"/><line x1="32" y1="32" x2="52" y2="12"/>
-      <line x1="32" y1="32" x2="12" y2="52"/><line x1="32" y1="32" x2="52" y2="52"/>
-      <rect x="26" y="26" width="12" height="12" rx="3" fill="currentColor" opacity=".25" stroke-width="1.5"/>
-      <circle cx="12" cy="12" r="6.5" stroke-width="1.8"/>
-      <circle cx="52" cy="12" r="6.5" stroke-width="1.8"/>
-      <circle cx="12" cy="52" r="6.5" stroke-width="1.8"/>
-      <circle cx="52" cy="52" r="6.5" stroke-width="1.8"/>
-      <line x1="5.5" y1="12" x2="18.5" y2="12" stroke-width="1.2"/>
-      <line x1="12" y1="5.5" x2="12" y2="18.5" stroke-width="1.2"/>
-      <line x1="45.5" y1="12" x2="58.5" y2="12" stroke-width="1.2"/>
-      <line x1="52" y1="5.5" x2="52" y2="18.5" stroke-width="1.2"/>
-      <line x1="5.5" y1="52" x2="18.5" y2="52" stroke-width="1.2"/>
-      <line x1="12" y1="45.5" x2="12" y2="58.5" stroke-width="1.2"/>
-      <line x1="45.5" y1="52" x2="58.5" y2="52" stroke-width="1.2"/>
-      <line x1="52" y1="45.5" x2="52" y2="58.5" stroke-width="1.2"/>
-    </svg>
-    <!-- Quadcopter 2 (small, top-right) -->
-    <svg class="deco-q2" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="1.8" stroke-linecap="round">
-      <line x1="32" y1="32" x2="12" y2="12"/><line x1="32" y1="32" x2="52" y2="12"/>
-      <line x1="32" y1="32" x2="12" y2="52"/><line x1="32" y1="32" x2="52" y2="52"/>
-      <rect x="26" y="26" width="12" height="12" rx="3" fill="currentColor" opacity=".25" stroke-width="1.5"/>
-      <circle cx="12" cy="12" r="6.5"/><circle cx="52" cy="12" r="6.5"/>
-      <circle cx="12" cy="52" r="6.5"/><circle cx="52" cy="52" r="6.5"/>
-      <line x1="5.5" y1="12" x2="18.5" y2="12" stroke-width="1.2"/>
-      <line x1="12" y1="5.5" x2="12" y2="18.5" stroke-width="1.2"/>
-      <line x1="45.5" y1="12" x2="58.5" y2="12" stroke-width="1.2"/>
-      <line x1="52" y1="5.5" x2="52" y2="18.5" stroke-width="1.2"/>
-      <line x1="5.5" y1="52" x2="18.5" y2="52" stroke-width="1.2"/>
-      <line x1="12" y1="45.5" x2="12" y2="58.5" stroke-width="1.2"/>
-      <line x1="45.5" y1="52" x2="58.5" y2="52" stroke-width="1.2"/>
-      <line x1="52" y1="45.5" x2="52" y2="58.5" stroke-width="1.2"/>
-    </svg>
-    <!-- Quadcopter 3 (tiny, bottom-left) -->
-    <svg class="deco-q3" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="1.8" stroke-linecap="round">
-      <line x1="32" y1="32" x2="12" y2="12"/><line x1="32" y1="32" x2="52" y2="12"/>
-      <line x1="32" y1="32" x2="12" y2="52"/><line x1="32" y1="32" x2="52" y2="52"/>
-      <rect x="26" y="26" width="12" height="12" rx="3" fill="currentColor" opacity=".25" stroke-width="1.5"/>
-      <circle cx="12" cy="12" r="6.5"/><circle cx="52" cy="12" r="6.5"/>
-      <circle cx="12" cy="52" r="6.5"/><circle cx="52" cy="52" r="6.5"/>
-    </svg>
-    <!-- Marine vessel 1 (side-view USV, bottom-right) -->
-    <svg class="deco-u1" viewBox="0 0 140 55" xmlns="http://www.w3.org/2000/svg" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <!-- hull -->
-      <path d="M8 36 L4 44 Q5 49 14 49 L118 49 Q130 49 132 43 L126 36 Z" fill="currentColor" opacity=".12"/>
-      <path d="M8 36 L4 44 Q5 49 14 49 L118 49 Q130 49 132 43 L126 36 Z"/>
-      <!-- deck -->
-      <line x1="8" y1="36" x2="126" y2="36"/>
-      <!-- superstructure -->
-      <rect x="60" y="20" width="50" height="16" rx="2" fill="currentColor" opacity=".15"/>
-      <rect x="60" y="20" width="50" height="16" rx="2"/>
-      <!-- bridge -->
-      <rect x="78" y="11" width="24" height="10" rx="1.5" fill="currentColor" opacity=".15"/>
-      <rect x="78" y="11" width="24" height="10" rx="1.5"/>
-      <!-- mast -->
-      <line x1="90" y1="11" x2="90" y2="4"/>
-      <line x1="85" y1="6" x2="95" y2="6" stroke-width="1.2"/>
-      <circle cx="90" cy="4" r="2.5" fill="currentColor" opacity=".4"/>
-      <!-- bow slope -->
-      <path d="M8 36 L20 28 L60 26 L60 36"/>
-      <!-- wake -->
-      <path d="M132 46 Q140 44 145 47" stroke-width="1.2" stroke-dasharray="2,3" opacity=".6"/>
-      <!-- water line -->
-      <path d="M0 49 Q18 53 36 49 Q54 45 72 49 Q90 53 108 49 Q122 46 136 49" stroke-width="1" opacity=".35"/>
-    </svg>
-    <!-- Marine vessel 2 (smaller, mid-left) -->
-    <svg class="deco-u2" viewBox="0 0 140 55" xmlns="http://www.w3.org/2000/svg" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M8 36 L4 44 Q5 49 14 49 L118 49 Q130 49 132 43 L126 36 Z" fill="currentColor" opacity=".12"/>
-      <path d="M8 36 L4 44 Q5 49 14 49 L118 49 Q130 49 132 43 L126 36 Z"/>
-      <line x1="8" y1="36" x2="126" y2="36"/>
-      <rect x="60" y="20" width="50" height="16" rx="2" fill="currentColor" opacity=".15"/>
-      <rect x="60" y="20" width="50" height="16" rx="2"/>
-      <rect x="78" y="11" width="24" height="10" rx="1.5" fill="currentColor" opacity=".15"/>
-      <rect x="78" y="11" width="24" height="10" rx="1.5"/>
-      <line x1="90" y1="11" x2="90" y2="4"/>
-      <line x1="85" y1="6" x2="95" y2="6" stroke-width="1.2"/>
-      <circle cx="90" cy="4" r="2.5" fill="currentColor" opacity=".4"/>
-      <path d="M8 36 L20 28 L60 26 L60 36"/>
-      <path d="M0 49 Q18 53 36 49 Q54 45 72 49 Q90 53 108 49 Q122 46 136 49" stroke-width="1" opacity=".35"/>
-    </svg>
-  </div>
   <div class="hero-inner">
     <div class="hero-glass">
       <p class="station mono">
