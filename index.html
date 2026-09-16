@@ -1,138 +1,1016 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<link rel="stylesheet" href="css/jemdoc.css" type="text/css" />
-<link rel="stylesheet" href="css/jacob.css" type="text/css" />
-<title>Ram Milan Verma &ndash; IIT Bombay</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ram Milan Kumar Verma — Guidance &amp; Control of Autonomous Vehicles</title>
+<meta name="description" content="Ram Milan Kumar Verma — Ph.D. researcher in Aerospace Engineering at IIT Bombay, working on guidance and control of autonomous surface, aerial and underwater vehicles.">
+<meta name="author" content="Ram Milan Kumar Verma">
+<meta property="og:title" content="Ram Milan Kumar Verma">
+<meta property="og:description" content="Guidance and control of autonomous surface, aerial and underwater vehicles. Ph.D. researcher, Aerospace Engineering, IIT Bombay.">
+<meta property="og:type" content="profile">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f2ece0'/%3E%3Cpath d='M4 20c4-6 8 6 12 0s8-6 12 0' stroke='%232f5d70' fill='none' stroke-width='1.6'/%3E%3Cpath d='M4 25c4-6 8 6 12 0s8-6 12 0' stroke='%232f5d70' fill='none' stroke-width='1' opacity='.5'/%3E%3Ccircle cx='16' cy='9' r='3.2' stroke='%23a8552f' fill='none' stroke-width='1.4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..800&family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   RMV · field notebook
+   tokens
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --paper:#f2ece0;
+  --paper-2:#eae2d3;
+  --paper-3:#e0d6c3;
+  --ink:#1b2730;
+  --ink-soft:#4e5a63;
+  --ink-faint:#8a9299;
+  --sea:#2f5d70;
+  --sea-deep:#1d3f4e;
+  --copper:#a8552f;
+  --rule:rgba(27,39,48,.18);
+  --rule-soft:rgba(27,39,48,.09);
+  --contour:rgba(47,93,112,.30);
+  --tape:rgba(200,186,160,.55);
+  --shadow:rgba(29,63,78,.13);
+
+  --display:"Fraunces",Georgia,serif;
+  --text:"Spectral",Georgia,serif;
+  --mono:"Courier Prime","Courier New",monospace;
+
+  --gut:clamp(18px,4.2vw,64px);
+  --rail:74px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0f171d;
+    --paper-2:#152029;
+    --paper-3:#1c2a34;
+    --ink:#e7dfd1;
+    --ink-soft:#a9b4bb;
+    --ink-faint:#71808a;
+    --sea:#79aebf;
+    --sea-deep:#a7cddb;
+    --copper:#d98b5f;
+    --rule:rgba(231,223,209,.17);
+    --rule-soft:rgba(231,223,209,.08);
+    --contour:rgba(121,174,191,.26);
+    --tape:rgba(121,174,191,.14);
+    --shadow:rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0f171d; --paper-2:#152029; --paper-3:#1c2a34;
+  --ink:#e7dfd1; --ink-soft:#a9b4bb; --ink-faint:#71808a;
+  --sea:#79aebf; --sea-deep:#a7cddb; --copper:#d98b5f;
+  --rule:rgba(231,223,209,.17); --rule-soft:rgba(231,223,209,.08);
+  --contour:rgba(121,174,191,.26); --tape:rgba(121,174,191,.14);
+  --shadow:rgba(0,0,0,.5);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--text);
+  font-weight:300;
+  font-size:clamp(16px,.55vw + 14.6px,18.5px);
+  line-height:1.62;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* paper grain — the only texture, deliberately faint */
+.grain{
+  position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none;
+  opacity:.34;mix-blend-mode:multiply;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .grain{mix-blend-mode:screen;opacity:.16}}
+:root[data-theme="dark"] .grain{mix-blend-mode:screen;opacity:.16}
+
+/* ── typography ─────────────────────────────────────────────── */
+h1,h2,h3,h4{font-family:var(--display);font-weight:400;margin:0;line-height:1.02;
+  font-variation-settings:"SOFT" 8,"WONK" 1;letter-spacing:-.015em}
+.mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.17em;text-transform:uppercase}
+a{color:inherit}
+
+/* ── depth-gauge rail (nav) ─────────────────────────────────── */
+.rail{
+  position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:40;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  padding-left:clamp(10px,1.6vw,22px);pointer-events:none;
+}
+.rail::before{
+  content:"";position:absolute;left:clamp(10px,1.6vw,22px);top:12vh;bottom:12vh;
+  width:1px;background:var(--rule);
+}
+.rail ol{list-style:none;margin:0;padding:0;position:relative;pointer-events:auto}
+.rail li{position:relative;height:38px;display:flex;align-items:center}
+.rail a{
+  display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink-faint);
+  transition:color .35s ease;
+}
+.rail .tick{display:block;height:1px;width:10px;background:currentColor;transition:width .38s cubic-bezier(.2,.8,.2,1)}
+.rail .lbl{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  opacity:0;transform:translateX(-4px);transition:opacity .35s ease,transform .35s ease;white-space:nowrap;
+}
+.rail a:hover,.rail a:focus-visible{color:var(--ink)}
+.rail a:hover .tick,.rail a:focus-visible .tick{width:24px}
+.rail a:hover .lbl,.rail a:focus-visible .lbl{opacity:1;transform:none}
+.rail li.on a{color:var(--copper)}
+.rail li.on .tick{width:30px}
+.rail li.on .lbl{opacity:1;transform:none}
+/* the descending sounding marker */
+.sounder{
+  position:absolute;left:calc(clamp(10px,1.6vw,22px) - 3px);top:12vh;
+  width:7px;height:7px;border:1px solid var(--copper);background:var(--paper);
+  transform:rotate(45deg);transition:transform .1s linear;
+}
+@media (max-width:900px){.rail{display:none}}
+
+/* ── shell ──────────────────────────────────────────────────── */
+.shell{max-width:1260px;margin:0 auto;padding:0 var(--gut) 0 var(--gut)}
+@media (min-width:901px){.shell{padding-left:calc(var(--rail) + var(--gut) * .4)}}
+
+/* ── hero ───────────────────────────────────────────────────── */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:14vh 0 10vh;overflow:hidden}
+#contours{position:absolute;inset:-5% -10% 0 -10%;width:120%;height:105%;z-index:0;pointer-events:none}
+#contours path{fill:none;stroke:var(--contour);stroke-width:.85;vector-effect:non-scaling-stroke}
+.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(34px,5vw,64px);width:100%}
+@media (min-width:860px){.hero-grid{grid-template-columns:minmax(0,1.62fr) minmax(210px,.68fr);align-items:end}}
+
+.station{display:flex;flex-wrap:wrap;align-items:baseline;gap:.55rem 1.1rem;color:var(--sea);margin-bottom:clamp(20px,3.4vw,38px)}
+.station .dot{width:5px;height:5px;background:var(--copper);border-radius:50%;display:inline-block;transform:translateY(-2px)}
+
+h1{
+  font-size:clamp(2.9rem,9.2vw,7.4rem);
+  font-variation-settings:"SOFT" 12,"WONK" 1;
+  letter-spacing:-.035em;line-height:.9;
+}
+h1 .given{display:block;font-weight:300;color:var(--ink)}
+h1 .family{display:block;font-weight:500;font-style:italic;color:var(--sea-deep);
+  margin-left:clamp(0px,4.5vw,86px)} /* the deliberate break in the grid */
+h1 .mid{font-weight:300;font-style:normal;font-size:.44em;color:var(--copper);
+  display:inline-block;transform:translateY(-.42em);letter-spacing:.02em;margin-right:.18em}
+
+.lede{
+  font-size:clamp(1.05rem,1.55vw + .55rem,1.5rem);line-height:1.45;font-weight:300;
+  max-width:31ch;margin:clamp(26px,3.6vw,44px) 0 0;color:var(--ink-soft);
+}
+.lede em{font-style:italic;color:var(--ink)}
+
+/* hero right column: compass + index of links */
+.aside-hero{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.rose{width:clamp(78px,9vw,108px);height:auto;opacity:.9}
+.rose .n{fill:var(--copper)}
+.rose .arm{stroke:var(--sea);fill:none;stroke-width:1.1}
+.rose .ring{stroke:var(--rule);fill:none;stroke-width:1}
+
+.index-links{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule);width:100%;max-width:280px}
+.index-links li{border-bottom:1px solid var(--rule-soft)}
+.index-links a{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:9px 0;text-decoration:none;color:var(--ink-soft);
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+  transition:color .3s ease,padding-left .3s ease;
+}
+.index-links a:hover,.index-links a:focus-visible{color:var(--copper);padding-left:7px}
+.index-links .arrow{opacity:.45;transition:transform .3s ease,opacity .3s ease}
+.index-links a:hover .arrow{opacity:1;transform:translate(3px,-3px)}
+
+/* waterline divider */
+.waterline{display:block;width:100%;height:clamp(40px,6vw,74px);margin:0}
+.waterline path{fill:none;stroke:var(--sea);stroke-width:1.1;opacity:.55}
+.waterline path:nth-child(2){opacity:.3}
+.waterline path:nth-child(3){opacity:.16}
+
+/* ── section scaffolding ────────────────────────────────────── */
+section{position:relative;padding:clamp(70px,9vw,132px) 0;scroll-margin-top:40px}
+.s-head{display:flex;align-items:baseline;gap:clamp(12px,2vw,26px);margin-bottom:clamp(30px,4.4vw,56px)}
+.s-head .no{color:var(--copper);flex:none}
+.s-head .dash{flex:1;height:1px;background:repeating-linear-gradient(to right,var(--rule) 0 7px,transparent 7px 14px);transform:translateY(-4px)}
+.s-head .meta{color:var(--ink-faint);flex:none}
+h2{font-size:clamp(1.85rem,4.1vw,3.3rem);font-weight:300;letter-spacing:-.03em;margin:0 0 clamp(26px,3.6vw,44px)}
+h2 .alt{font-style:italic;color:var(--sea)}
+
+/* margin annotation — typewriter note pinned in the gutter */
+.note{
+  font-family:var(--mono);font-size:.68rem;line-height:1.45;color:var(--copper);
+  max-width:19ch;transform:rotate(-1.6deg);position:relative;padding-left:16px;
+}
+.note::before{
+  content:"";position:absolute;left:0;top:.55em;width:9px;height:1px;background:var(--copper);opacity:.7;
+}
+@media (min-width:1080px){
+  .note.pin{position:absolute;right:calc(var(--gut) * -.1);width:19ch;}
+}
+
+/* ── about ──────────────────────────────────────────────────── */
+.about-grid{display:grid;gap:clamp(30px,4vw,58px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:880px){.about-grid{grid-template-columns:minmax(0,1.1fr) minmax(0,1.42fr);align-items:start}}
+.about-body p{margin:0 0 1.15em;max-width:58ch}
+.about-body p:last-child{margin-bottom:0}
+.about-body .drop::first-letter{
+  font-family:var(--display);font-size:3.4em;line-height:.82;float:left;
+  padding:.08em .1em 0 0;font-weight:400;color:var(--sea-deep);
+  font-variation-settings:"SOFT" 20,"WONK" 1;
+}
+
+/* taped photograph */
+.plate-photo{position:relative;transform:rotate(-1.4deg);max-width:340px}
+.plate-photo .frame{
+  background:var(--paper-2);border:1px solid var(--rule);
+  padding:13px 13px 0;box-shadow:0 14px 34px -22px var(--shadow);
+}
+.plate-photo .slot{
+  aspect-ratio:4/5;background:var(--paper-3);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:10px;color:var(--ink-faint);text-align:center;padding:18px;
+  background-image:repeating-linear-gradient(45deg,var(--rule-soft) 0 1px,transparent 1px 11px);
+}
+.plate-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.plate-photo .cap{
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-faint);padding:11px 2px 14px;text-align:center;
+}
+.tape{
+  position:absolute;width:88px;height:24px;background:var(--tape);
+  top:-13px;left:50%;transform:translateX(-50%) rotate(2.6deg);
+  border-left:1px dashed var(--rule-soft);border-right:1px dashed var(--rule-soft);
+}
+
+/* ── research entries ───────────────────────────────────────── */
+.threads{display:flex;flex-direction:column;gap:clamp(40px,5.4vw,78px)}
+.thread{display:grid;gap:clamp(20px,3vw,44px);grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:820px){
+  .thread{grid-template-columns:minmax(150px,.52fr) minmax(0,1.48fr)}
+  .thread:nth-child(even){grid-template-columns:minmax(0,1.48fr) minmax(150px,.52fr)}
+  .thread:nth-child(even) .fig{order:2}
+  .thread:nth-child(even) .body{order:1}
+  /* each alternate thread steps right — breaks the column lockstep */
+  .thread:nth-child(3n+2){margin-left:clamp(0px,3vw,52px)}
+}
+.fig{border:1px solid var(--rule);background:var(--paper-2);padding:14px}
+.fig svg{width:100%;height:auto;display:block}
+.fig .cap{font-family:var(--mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);margin-top:11px}
+.fig .stroke{fill:none;stroke:var(--sea);stroke-width:1.5;stroke-linecap:round}
+.fig .hair{fill:none;stroke:var(--rule);stroke-width:1;stroke-dasharray:3 4}
+.fig .hot{fill:none;stroke:var(--copper);stroke-width:1.5;stroke-linecap:round}
+.fig .fill-hot{fill:var(--copper)}
+.fig .fill-sea{fill:var(--sea)}
+.fig text{font-family:var(--mono);font-size:7px;fill:var(--ink-faint);letter-spacing:.08em}
+
+.thread h3{font-size:clamp(1.25rem,2.1vw,1.72rem);font-weight:400;margin-bottom:.5em;letter-spacing:-.02em}
+.thread .kicker{color:var(--copper);display:block;margin-bottom:.7em}
+.thread p{margin:0;max-width:56ch;color:var(--ink-soft)}
+.thread .tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px;padding:0;list-style:none}
+.thread .tags li{
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:3px 9px;color:var(--ink-faint);
+}
+
+/* ── publications ledger ────────────────────────────────────── */
+.ledger-head{display:flex;align-items:baseline;gap:14px;margin:clamp(30px,3.4vw,44px) 0 6px}
+.ledger-head span:first-child{color:var(--sea)}
+.ledger-head .r{flex:1;height:1px;background:var(--rule)}
+.ledger{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.ledger li{border-bottom:1px solid var(--rule-soft);position:relative}
+.entry{
+  display:grid;grid-template-columns:52px minmax(0,1fr);gap:0 clamp(12px,1.6vw,24px);
+  padding:clamp(15px,1.9vw,22px) 4px;text-decoration:none;color:inherit;transition:background .35s ease;
+}
+a.entry:hover,a.entry:focus-visible{background:var(--paper-2)}
+.entry .id{font-family:var(--mono);font-size:.68rem;letter-spacing:.09em;color:var(--copper);padding-top:.35em}
+.entry .ttl{font-size:clamp(1rem,1.15vw + .58rem,1.2rem);line-height:1.34;margin:0 0 .4em;font-weight:400;
+  font-family:var(--display);font-variation-settings:"SOFT" 6,"WONK" 0;letter-spacing:-.012em;
+  background-image:linear-gradient(var(--copper),var(--copper));background-size:0% 1px;
+  background-repeat:no-repeat;background-position:0 1.12em;transition:background-size .5s cubic-bezier(.2,.8,.2,1);
+  display:inline;
+}
+a.entry:hover .ttl,a.entry:focus-visible .ttl{background-size:100% 1px}
+.entry .who{display:block;font-size:.86rem;color:var(--ink-soft);margin:.45em 0 .3em}
+.entry .who b{font-weight:500;color:var(--ink);font-style:normal}
+.entry .where{font-family:var(--mono);font-size:.63rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-faint);display:block}
+.entry .state{color:var(--copper)}
+.entry .doi{opacity:0;transition:opacity .35s ease;color:var(--copper);font-family:var(--mono);font-size:.62rem}
+a.entry:hover .doi,a.entry:focus-visible .doi{opacity:1}
+
+/* ── projects ───────────────────────────────────────────────── */
+.decks{display:grid;gap:clamp(34px,4vw,58px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){
+  .decks{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+  .decks > div:last-child{margin-top:clamp(28px,4.5vw,76px)} /* asymmetry, on purpose */
+}
+.proj{list-style:none;margin:0;padding:0}
+.proj li{padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+.proj li:first-child{border-top:1px solid var(--rule)}
+.proj h4{font-size:1.04rem;font-weight:400;line-height:1.3;margin-bottom:.45em}
+.proj .funder{font-family:var(--mono);font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--sea);display:block;margin-bottom:.5em}
+.proj p{margin:0;font-size:.92rem;color:var(--ink-soft);max-width:48ch}
+.proj .stat{float:right;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--copper);margin-left:12px}
+
+/* ── teaching manifest ──────────────────────────────────────── */
+.manifest{width:100%;border-collapse:collapse;font-size:.92rem}
+.manifest caption{text-align:left;font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);padding-bottom:12px}
+.manifest th{
+  text-align:left;font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;
+  font-weight:400;color:var(--ink-faint);border-bottom:1px solid var(--rule);padding:0 10px 9px 0;
+}
+.manifest td{padding:12px 10px 12px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+.manifest td:first-child{font-family:var(--mono);font-size:.7rem;color:var(--copper);white-space:nowrap;letter-spacing:.06em}
+.manifest td:last-child{font-family:var(--mono);font-size:.62rem;color:var(--ink-faint);text-align:right;white-space:nowrap;letter-spacing:.09em;text-transform:uppercase}
+.manifest tr:hover td{background:var(--paper-2)}
+.workshops{list-style:none;margin:clamp(26px,3.4vw,42px) 0 0;padding:0;display:grid;gap:18px}
+.workshops li{padding-left:18px;border-left:1px solid var(--rule);font-size:.93rem;color:var(--ink-soft)}
+.workshops b{font-weight:500;color:var(--ink);display:block;font-family:var(--display);font-size:1.02rem}
+
+/* ── plates gallery ─────────────────────────────────────────── */
+.plates{display:grid;gap:clamp(20px,2.6vw,34px);grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr))}
+.plate{border:1px solid var(--rule);background:var(--paper-2);padding:12px;box-shadow:0 12px 30px -26px var(--shadow)}
+.plate:nth-child(2n){transform:rotate(.7deg)}
+.plate:nth-child(3n){transform:rotate(-.9deg)}
+.plate .slot{
+  aspect-ratio:4/3;background:var(--paper-3);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;color:var(--ink-faint);text-align:center;padding:14px;
+  background-image:repeating-linear-gradient(45deg,var(--rule-soft) 0 1px,transparent 1px 11px);
+}
+.plate img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.plate .cap{font-size:.84rem;color:var(--ink-soft);margin:11px 2px 3px;line-height:1.4}
+.plate .no{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);margin:0 2px}
+
+/* ── awards ─────────────────────────────────────────────────── */
+.awards{list-style:none;margin:0;padding:0;columns:2;column-gap:clamp(24px,3.4vw,54px)}
+@media (max-width:720px){.awards{columns:1}}
+.awards li{break-inside:avoid;padding:11px 0;border-bottom:1px solid var(--rule-soft);font-size:.93rem;color:var(--ink-soft);display:flex;gap:12px;align-items:baseline}
+.awards .yr{font-family:var(--mono);font-size:.62rem;color:var(--copper);flex:none;letter-spacing:.08em;min-width:52px}
+
+/* ── beyond / field notes ───────────────────────────────────── */
+.beyond{display:grid;gap:clamp(24px,3vw,44px);grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.fnote{border-top:1px solid var(--rule);padding-top:16px}
+.fnote .g{display:block;margin-bottom:12px;color:var(--sea)}
+.fnote .g svg{width:34px;height:34px;display:block}
+.fnote .g path,.fnote .g circle,.fnote .g line{fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.fnote h4{font-size:1.1rem;font-weight:400;margin-bottom:.42em}
+.fnote p{margin:0;font-size:.9rem;color:var(--ink-soft)}
+
+/* ── contact ────────────────────────────────────────────────── */
+.soundings{display:grid;gap:clamp(30px,4vw,60px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.soundings{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:end}}
+.big-mail{
+  font-family:var(--display);font-size:clamp(1.5rem,4.6vw,3.1rem);font-weight:300;letter-spacing:-.03em;
+  text-decoration:none;color:var(--ink);display:inline-block;line-height:1.1;
+  background-image:linear-gradient(var(--copper),var(--copper));background-size:100% 1px;
+  background-repeat:no-repeat;background-position:0 100%;transition:background-size .45s cubic-bezier(.2,.8,.2,1),color .3s ease;
+  word-break:break-word;
+}
+.big-mail:hover,.big-mail:focus-visible{color:var(--copper);background-size:0% 1px}
+
+footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50px,7vw,96px)}
+.foot-row{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:space-between;align-items:center;color:var(--ink-faint)}
+.theme-btn{
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;
+  background:none;border:1px solid var(--rule);color:var(--ink-faint);padding:7px 13px;cursor:pointer;
+  transition:color .3s ease,border-color .3s ease;
+}
+.theme-btn:hover{color:var(--copper);border-color:var(--copper)}
+
+/* ── reveal ─────────────────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .85s cubic-bezier(.2,.8,.2,1),transform .85s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+::selection{background:var(--copper);color:var(--paper)}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--paper);color:var(--ink);padding:12px 18px;z-index:99}
+.skip:focus{left:8px;top:8px}
+</style>
 </head>
 <body>
-<!-- MathJax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg class="grain" aria-hidden="true"><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gr)" opacity=".5"/></svg>
+
+<nav class="rail" aria-label="Section index">
+  <ol id="railList">
+    <li><a href="#bearing"><span class="tick"></span><span class="lbl">Bearing</span></a></li>
+    <li><a href="#research"><span class="tick"></span><span class="lbl">Research</span></a></li>
+    <li><a href="#papers"><span class="tick"></span><span class="lbl">Papers</span></a></li>
+    <li><a href="#projects"><span class="tick"></span><span class="lbl">Projects</span></a></li>
+    <li><a href="#teaching"><span class="tick"></span><span class="lbl">Teaching</span></a></li>
+    <li><a href="#plates"><span class="tick"></span><span class="lbl">Plates</span></a></li>
+    <li><a href="#honours"><span class="tick"></span><span class="lbl">Honours</span></a></li>
+    <li><a href="#beyond"><span class="tick"></span><span class="lbl">Off-watch</span></a></li>
+    <li><a href="#contact"><span class="tick"></span><span class="lbl">Contact</span></a></li>
+  </ol>
+  <span class="sounder" id="sounder" aria-hidden="true"></span>
+</nav>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<header class="hero">
+  <svg id="contours" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 700"></svg>
+  <div class="shell hero-grid">
+    <div>
+      <p class="station mono">
+        <span>19°08′N 72°54′E</span><span class="dot"></span>
+        <span>IIT Bombay</span><span class="dot"></span>
+        <span>Aerospace Engineering</span>
+      </p>
+      <h1>
+        <span class="given">Ram Milan</span>
+        <span class="family"><span class="mid">K.</span>Verma</span>
+      </h1>
+      <p class="lede">
+        Ph.D. researcher in <em>guidance and control</em> — teaching vessels, aircraft and
+        underwater craft to hold a line under constraint, disturbance and a deadline.
+      </p>
+    </div>
+
+    <div class="aside-hero">
+      <svg class="rose" viewBox="0 0 100 100" aria-hidden="true">
+        <circle class="ring" cx="50" cy="50" r="40"/>
+        <circle class="ring" cx="50" cy="50" r="30"/>
+        <path class="arm" d="M50 6 L57 50 L50 94 L43 50 Z"/>
+        <path class="arm" d="M6 50 L50 43 L94 50 L50 57 Z"/>
+        <path class="n" d="M50 6 L57 50 L50 44 Z"/>
+        <path class="arm" d="M21 21 L52 48 L79 79 M79 21 L48 52 L21 79" stroke-width=".7" opacity=".55"/>
+      </svg>
+      <ul class="index-links">
+        <li><a href="#contact">Email<span class="arrow">↗</span></a></li>
+        <li><a href="https://scholar.google.com/citations?user=Hp7C3WkAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar<span class="arrow">↗</span></a></li>
+        <li><a href="https://orcid.org/0009-0004-7480-9838" target="_blank" rel="noopener">ORCID<span class="arrow">↗</span></a></li>
+        <li><a href="https://www.researchgate.net/profile/Ram-Milan-Verma-2" target="_blank" rel="noopener">ResearchGate<span class="arrow">↗</span></a></li>
+        <li><a href="https://www.linkedin.com/in/ram-milan-verma/" target="_blank" rel="noopener">LinkedIn<span class="arrow">↗</span></a></li>
+        <li><a href="https://github.com/rm-verma" target="_blank" rel="noopener">GitHub<span class="arrow">↗</span></a></li>
+        <li><a href="cv.pdf" target="_blank" rel="noopener">Curriculum Vitae — PDF<span class="arrow">↓</span></a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<svg class="waterline" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 40 C 100 14, 200 66, 300 40 S 500 14, 600 40 S 800 66, 900 40 S 1100 14, 1200 40"/>
+  <path d="M0 54 C 120 30, 210 78, 320 54 S 520 30, 630 54 S 830 78, 940 54 S 1120 30, 1200 54"/>
+  <path d="M0 66 C 140 46, 230 86, 340 66 S 540 46, 650 66 S 850 86, 960 66 S 1140 46, 1200 66"/>
+</svg>
+
+<main id="main">
+
+<!-- ══════════════════════════ BEARING ══════════════════════════ -->
+<section id="bearing" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 00</span><span class="dash"></span><span class="meta mono">Bearing</span></div>
+  <h2 class="rv">A <span class="alt">control engineer</span> who keeps ending up near water.</h2>
+
+  <div class="about-grid">
+    <div class="rv">
+      <figure class="plate-photo">
+        <span class="tape" aria-hidden="true"></span>
+        <div class="frame">
+          <!-- Replace the <div class="slot"> below with: <img src="assets/portrait.jpg" alt="Ram Milan Kumar Verma"> -->
+          <div class="slot">
+            <span class="mono">Plate 0</span>
+            <span style="font-size:.82rem">Drop a portrait at<br><code style="font-family:var(--mono);font-size:.72rem">assets/portrait.jpg</code></span>
+          </div>
+          <figcaption class="cap">Ram Milan Kumar Verma · Powai</figcaption>
+        </div>
+      </figure>
+      <p class="note" style="margin-top:26px">Born in a village near Bodhgaya. Schooled at Jawahar Navodaya Vidyalaya. Still surprised by boats.</p>
+    </div>
+
+    <div class="about-body rv">
+      <p class="drop">I am a Ph.D. research scholar in the Department of Aerospace Engineering at IIT Bombay, advised by <a href="https://www.aero.iitb.ac.in/~shashi/index.html" target="_blank" rel="noopener">Prof. Shashi Ranjan Kumar</a> and Prof. Hemendra Arya. My thesis sits in the guidance and control of autonomous vehicles — most of it on unmanned surface vessels, where the plant is sluggish, underactuated, and permanently arguing with the sea.</p>
+      <p>The through-line of my work is <em>constraint</em>. A vessel must reach a berth at a particular angle, within a particular time, without asking its thrusters for more than they can give, and without wandering outside a corridor it was never allowed to leave. Barrier Lyapunov functions, true-proportional-navigation, and input magnitude-and-rate limits are the tools; the test is whether the thing still docks when the water is moving.</p>
+      <p>Before the Ph.D. I spent two and a half years building systems that had to survive contact with hardware: flight models and control laws for a manoeuvrable aerial target and a tilt-rotor at <strong>L&amp;T Precision Engineering &amp; Systems</strong>, deployed onto an actual flight control computer and shaken out through hardware-in-the-loop testing; and before that, vital-sign estimation from Doppler radar at <strong>Sleepiz</strong>, pulling breathing and heart rate out of noise while someone slept three feet away.</p>
+      <p>That order — hardware first, then theory — is why I care less about elegant proofs than about whether a controller degrades gracefully. I work in MATLAB/Simulink, Python, C++ and ROS-Gazebo, and I would rather spend a week on a bench test than a day on a nicer bound.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ RESEARCH ══════════════════════════ -->
+<section id="research" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 01</span><span class="dash"></span><span class="meta mono">2023 — present</span></div>
+  <h2 class="rv">Current <span class="alt">lines of work</span></h2>
+
+  <div class="threads">
+
+    <article class="thread rv">
+      <div class="fig">
+        <svg viewBox="0 0 220 150" role="img" aria-label="Diagram: a vessel approaching a berth along a line of sight with a constrained approach angle">
+          <path class="hair" d="M30 120 L190 42"/>
+          <path class="hair" d="M190 42 L190 120"/>
+          <path class="stroke" d="M30 122 C 78 118, 116 92, 150 62 S 178 44, 188 42"/>
+          <path class="hot" d="M168 55 A 26 26 0 0 1 190 68"/>
+          <path class="fill-sea" d="M24 116 l14 5 -14 5 4 -5 z"/>
+          <rect x="182" y="34" width="16" height="16" class="hot"/>
+          <text x="150" y="82">γ*</text>
+          <text x="36" y="139">vessel</text>
+          <text x="163" y="27">berth</text>
+        </svg>
+        <p class="cap">Fig. 1 — approach-angle constrained terminal geometry</p>
+      </div>
+      <div class="body">
+        <h3><span class="kicker mono">Thread A</span>Guidance for unmanned surface vessels</h3>
+        <p>Terminal guidance laws that deliver a surface vessel to a target with a specified approach angle, and separately with a specified time of arrival, built on true-proportional-navigation. The interesting part is that a USV cannot slew like a missile: the same geometry that makes PN elegant in air becomes a genuinely constrained problem on water.</p>
+        <ul class="tags"><li>TPN</li><li>Impact angle</li><li>Time constraint</li><li>Underactuated</li></ul>
+      </div>
+    </article>
+
+    <article class="thread rv">
+      <div class="fig">
+        <svg viewBox="0 0 220 150" role="img" aria-label="Diagram: a trajectory confined within a barrier corridor around a reference path">
+          <path class="hair" d="M12 40 C 70 18, 140 92, 208 46"/>
+          <path class="hair" d="M12 106 C 70 84, 140 158, 208 112"/>
+          <path class="stroke" d="M12 73 C 70 51, 140 125, 208 79" stroke-dasharray="6 5"/>
+          <path class="hot" d="M12 78 C 52 44, 92 96, 128 88 S 176 96, 208 84"/>
+          <line x1="12" y1="40" x2="12" y2="106" class="hair"/>
+          <line x1="208" y1="46" x2="208" y2="112" class="hair"/>
+          <text x="16" y="34">barrier</text>
+          <text x="150" y="118">reference</text>
+        </svg>
+        <p class="cap">Fig. 2 — motion confined by a barrier Lyapunov certificate</p>
+      </div>
+      <div class="body">
+        <h3><span class="kicker mono">Thread B</span>Barrier Lyapunov control under motion constraints</h3>
+        <p>A controller that keeps a surface vessel's states inside prescribed bounds for all time — not as a soft penalty, but as a structural property of the Lyapunov function itself. Useful when the constraint is a channel, a safety envelope, or a sensor's field of view rather than a preference.</p>
+        <ul class="tags"><li>Barrier Lyapunov function</li><li>State constraints</li><li>Stability proof</li></ul>
+      </div>
+    </article>
+
+    <article class="thread rv">
+      <div class="fig">
+        <svg viewBox="0 0 220 150" role="img" aria-label="Diagram: actuator command saturating against magnitude and rate limits">
+          <line x1="20" y1="20" x2="20" y2="130" class="hair"/>
+          <line x1="20" y1="130" x2="205" y2="130" class="hair"/>
+          <line x1="20" y1="44" x2="205" y2="44" class="hair"/>
+          <line x1="20" y1="116" x2="205" y2="116" class="hair"/>
+          <path class="stroke" d="M20 116 C 48 30, 70 22, 96 44 S 126 128, 150 108 S 186 52, 205 62"/>
+          <path class="hot" d="M20 116 L52 44 L96 44 L128 116 L152 110 C 176 78, 192 62, 205 64"/>
+          <text x="24" y="38">+u̅</text>
+          <text x="24" y="127">−u̅</text>
+          <text x="150" y="26">rate-limited</text>
+        </svg>
+        <p class="cap">Fig. 3 — command vs. magnitude- and rate-limited actuation</p>
+      </div>
+      <div class="body">
+        <h3><span class="kicker mono">Thread C</span>Trajectory tracking with input magnitude &amp; rate limits</h3>
+        <p>Thrusters have a maximum output and a maximum slew. Ignore the second and a controller that looks fine in simulation will chatter a real propulsion system to pieces. This line designs tracking control that respects both, in the presence of environmental disturbance, and proves the resulting closed loop still converges.</p>
+        <ul class="tags"><li>Saturation</li><li>Rate limits</li><li>Disturbance rejection</li></ul>
+      </div>
+    </article>
+
+    <article class="thread rv">
+      <div class="fig">
+        <svg viewBox="0 0 220 150" role="img" aria-label="Diagram: an unmanned vessel converging alongside a moving ship to dock">
+          <path class="hair" d="M18 44 C 80 44, 150 52, 206 62"/>
+          <path class="stroke" d="M16 40 h44 l10 11 -10 11 h-44 z"/>
+          <path class="stroke" d="M150 52 h46 l12 12 -12 12 h-46 z"/>
+          <path class="hot" d="M26 126 C 76 122, 108 104, 136 82 S 160 66, 176 64" stroke-dasharray="5 4"/>
+          <path class="fill-hot" d="M172 60 l12 4 -12 4 3 -4 z"/>
+          <text x="20" y="139">USV</text>
+          <text x="156" y="102">moving ship</text>
+        </svg>
+        <p class="cap">Fig. 4 — rendezvous with a non-stationary berth</p>
+      </div>
+      <div class="body">
+        <h3><span class="kicker mono">Thread D</span>Autonomous docking with stationary &amp; moving ships</h3>
+        <p>The hardest version of the problem: the berth itself is under way. Docking becomes a rendezvous with terminal position, heading and relative-velocity conditions all binding at once — and the approach corridor closes as you get near. Currently in preparation.</p>
+        <ul class="tags"><li>Docking</li><li>Rendezvous</li><li>Moving target</li></ul>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════ PAPERS ══════════════════════════ -->
+<section id="papers" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 02</span><span class="dash"></span><span class="meta mono">Peer-reviewed record</span></div>
+  <h2 class="rv">Papers &amp; <span class="alt">proceedings</span></h2>
+  <p class="rv" style="max-width:52ch;color:var(--ink-soft);margin:0 0 6px">
+    A live list is kept on <a href="https://scholar.google.com/citations?user=Hp7C3WkAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> and <a href="https://orcid.org/0009-0004-7480-9838" target="_blank" rel="noopener">ORCID</a>.
+  </p>
+
+  <div class="ledger-head rv"><span class="mono">Journal articles</span><span class="r"></span><span class="mono" style="color:var(--ink-faint)">04</span></div>
+  <ul class="ledger rv">
+    <li><div class="entry"><span class="id">J4</span><div>
+      <h3 class="ttl">Autonomous Docking of Unmanned Surface Vessel with Stationary and Moving Ships</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+    <li><div class="entry"><span class="id">J3</span><div>
+      <h3 class="ttl">True-Proportional-Navigation based Time Constrained Guidance of Unmanned Surface Vessel</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+    <li><div class="entry"><span class="id">J2</span><div>
+      <h3 class="ttl">Trajectory Tracking Control of Surface Vessels with Constrained Input Magnitude and Rate in the Presence of Disturbances</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+    <li><div class="entry"><span class="id">J1</span><div>
+      <h3 class="ttl">Barrier Lyapunov Function-based Controller for Surface Vessels with Motion Constraints</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+  </ul>
+
+  <div class="ledger-head rv"><span class="mono">Conference proceedings</span><span class="r"></span><span class="mono" style="color:var(--ink-faint)">06</span></div>
+  <ul class="ledger rv">
+    <li><div class="entry"><span class="id">C6</span><div>
+      <h3 class="ttl">True-Proportional-Navigation based Time Constrained Guidance of Unmanned Surface Vessel</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where">American Control Conference · Denver, USA · 2025</span></div></div></li>
+    <li><div class="entry"><span class="id">C5</span><div>
+      <h3 class="ttl">Approach Angle Constrained Guidance Strategy of Autonomous Surface Vessel</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where">American Control Conference · Denver, USA · 2025</span></div></div></li>
+    <li><a class="entry" href="https://doi.org/10.1109/ICC64753.2024.10883753" target="_blank" rel="noopener"><span class="id">C4</span><div>
+      <h3 class="ttl">Leader-Driven Formation Control for Unmanned Ground Vehicles: Simulation and Practical Implementation</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. Singh, S. R. Kumar, H. Arya</span>
+      <span class="where">Tenth Indian Control Conference (ICC) · Bhopal, India · 2024 · pp. 160–165 &nbsp;<span class="doi">10.1109/ICC64753.2024.10883753 ↗</span></span></div></a></li>
+    <li><a class="entry" href="https://doi.org/10.2514/6.2025-1904" target="_blank" rel="noopener"><span class="id">C3</span><div>
+      <h3 class="ttl">Trajectory Tracking Control of Surface Vessels With Constrained Input in the Presence of Disturbances</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where">AIAA Guidance, Navigation &amp; Control Conference (SciTech Forum) · Orlando, Florida, USA · 2025 &nbsp;<span class="doi">10.2514/6.2025-1904 ↗</span></span></div></a></li>
+    <li><a class="entry" href="https://doi.org/10.2514/6.2025-1903" target="_blank" rel="noopener"><span class="id">C2</span><div>
+      <h3 class="ttl">Barrier Lyapunov Function-Based Controller for Surface Vessels With Motion Constraints</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where">AIAA Guidance, Navigation &amp; Control Conference (SciTech Forum) · Orlando, Florida, USA · 2025 &nbsp;<span class="doi">10.2514/6.2025-1903 ↗</span></span></div></a></li>
+    <li><a class="entry" href="https://doi.org/10.1007/978-981-15-1724-2_9" target="_blank" rel="noopener"><span class="id">C1</span><div>
+      <h3 class="ttl">Closed-Loop Simulation for Attitude Control of Nano-satellite</h3>
+      <span class="who">R. Singh, <b>R. M. K. Verma</b>, et al.</span>
+      <span class="where">Advances in Small Satellite Technologies, Springer Singapore · pp. 87–97 &nbsp;<span class="doi">10.1007/978-981-15-1724-2_9 ↗</span></span></div></a></li>
+  </ul>
+
+  <div class="ledger-head rv"><span class="mono">Posters &amp; symposia</span><span class="r"></span><span class="mono" style="color:var(--ink-faint)">03</span></div>
+  <ul class="ledger rv">
+    <li><div class="entry"><span class="id">P2</span><div>
+      <h3 class="ttl">Iron Fish — Test Bed for Unmanned Underwater Vehicles</h3>
+      <span class="who"><b>R. M. K. Verma</b>, H. Arya, S. R. Kumar</span>
+      <span class="where">Indo–German Workshop on Frontiers of Robot Learning, IIT Bombay &amp; CPS Symposium, IISc Bangalore · Jul 2024</span></div></div></li>
+    <li><div class="entry"><span class="id">P1</span><div>
+      <h3 class="ttl">Barrier Lyapunov Function-based Controller for Surface Vessels with Motion Constraints</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where">Indo–German Workshop on Frontiers of Robot Learning, IIT Bombay · Jul 2024</span></div></div></li>
+    <li><div class="entry"><span class="id">S1</span><div>
+      <h3 class="ttl">Trajectory Tracking Control of Surface Vessels with Constrained Input in the Presence of Disturbances</h3>
+      <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
+      <span class="where">Cyber Physical Systems Symposium · IISc Bangalore · Jul 2024</span></div></div></li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════ PROJECTS ══════════════════════════ -->
+<section id="projects" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 03</span><span class="dash"></span><span class="meta mono">Sponsored work</span></div>
+  <h2 class="rv">Projects &amp; <span class="alt">proofs of concept</span></h2>
+
+  <div class="decks">
+    <div class="rv">
+      <p class="mono" style="color:var(--sea);margin:0 0 18px">Industry &amp; defence</p>
+      <ul class="proj">
+        <li>
+          <span class="stat">Completed</span>
+          <h4>Vibration-Tolerant Robust Controller for a Naval Gun Mount</h4>
+          <span class="funder">ARDE · DRDO, India</span>
+          <p>Wrote the proposal and survey, built the mathematical model, then designed and compared PI, PID, LQR, LQG and loop-shaping controllers to hold barrel orientation against platform vibration.</p>
+        </li>
+        <li>
+          <span class="stat">2024</span>
+          <h4>Engine Thrust Regulator for a Ramjet Engine</h4>
+          <span class="funder">DRDL · DRDO, India</span>
+          <p>Literature survey and proposal for regulating thrust across the ramjet's operating envelope.</p>
+        </li>
+        <li>
+          <span class="stat">2022–23</span>
+          <h4>Flight Simulation &amp; Control — MEAT and tilt-rotor</h4>
+          <span class="funder">L&amp;T Precision Engineering &amp; Systems</span>
+          <p>Mathematical model and control design for a Manoeuvrable Expendable Aerial Target and its variants; a V-22-class tilt-rotor model in MATLAB; deployment to the flight control computer with hardware-in-the-loop test and debug; swarming behaviour simulated and then flown on ground robots; and a guided 155&nbsp;mm artillery shell model.</p>
+        </li>
+        <li>
+          <span class="stat">2020–22</span>
+          <h4>Vital-Sign Estimation from Doppler Radar</h4>
+          <span class="funder">Sleepiz India · contactless sleep monitoring</span>
+          <p>Algorithms estimating breathing and heart rate from raw continuous-wave Doppler radar, plus learning-based models for signal-quality assessment, sleep-stage classification and Apnoea–Hypopnoea Index.</p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rv">
+      <p class="mono" style="color:var(--sea);margin:0 0 18px">Proofs of concept</p>
+      <ul class="proj">
+        <li>
+          <span class="stat">Ongoing</span>
+          <h4>Fully Actuated Quadrotor for Precision Trajectory Tracking</h4>
+          <span class="funder">MeitY, Government of India</span>
+          <p>A 6-DOF model and controllers for a fully actuated quadrotor, aimed at tasks a conventional multirotor cannot do — passing through narrow openings, close-range imaging, crop monitoring.</p>
+        </li>
+        <li>
+          <span class="stat">Ongoing</span>
+          <h4>UAV Manoeuvring in GPS-Denied Environments</h4>
+          <span class="funder">MeitY, Government of India</span>
+          <p>Design and implementation of a UAV that recovers its own stability after collision inside confined spaces.</p>
+        </li>
+        <li>
+          <span class="stat">2024</span>
+          <h4>Cooperative Object Transportation by UAV Team</h4>
+          <span class="funder">MeitY, Government of India</span>
+          <p>Robust guidance and control letting several UAVs carry one load between locations without fighting each other for it.</p>
+        </li>
+        <li>
+          <span class="stat">2024</span>
+          <h4>Obstacle Avoidance via the Collision-Cone Approach</h4>
+          <span class="funder">MeitY, Government of India</span>
+          <p>Collision-free quadrotor navigation using collision-cone conditions rather than replanning.</p>
+        </li>
+        <li>
+          <span class="stat">2018–19</span>
+          <h4>Earlier work — SLAM, fusion, satellite ADCS</h4>
+          <span class="funder">IIT Bombay · undergraduate &amp; dual-degree</span>
+          <p>Particle-filter SLAM on TurtleBot3 in Gazebo; decentralized vs. centralized Kalman fusion architectures for multi-sensor systems; and ADCS subsystem lead on the IITB Student Satellite, deriving CubeSat equations of motion for non-orthogonal reaction wheels and building the closed-loop simulation framework.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ TEACHING ══════════════════════════ -->
+<section id="teaching" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 04</span><span class="dash"></span><span class="meta mono">Since 2019</span></div>
+  <h2 class="rv">Teaching &amp; <span class="alt">mentorship</span></h2>
+
+  <div class="about-grid">
+    <div class="rv" style="order:2">
+      <table class="manifest">
+        <caption>Teaching assistantships · IIT Bombay</caption>
+        <thead><tr><th scope="col">Code</th><th scope="col">Course</th><th scope="col">Term</th></tr></thead>
+        <tbody>
+          <tr><td>NPTEL</td><td>Introduction to Autonomous Systems</td><td>Ongoing</td></tr>
+          <tr><td>AE686</td><td>Guidance of Aerospace Vehicles</td><td>Spring 2025</td></tr>
+          <tr><td>AE700</td><td>Guidance &amp; Control of Unmanned Autonomous Vehicles</td><td>Spring 2024</td></tr>
+          <tr><td>AE410</td><td>Navigation and Guidance</td><td>Summer 2024</td></tr>
+          <tr><td>AE407</td><td>Modelling and Simulation</td><td>Aut 2023, 2024</td></tr>
+          <tr><td>AE305/717</td><td>Flight Mechanics</td><td>Spring 2020</td></tr>
+          <tr><td>AE695</td><td>State Space Methods for Flight Vehicles</td><td>Autumn 2019</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="rv" style="order:1">
+      <p style="max-width:46ch;color:var(--ink-soft);margin:0 0 8px">Preparing lectures, tutorials, assignments and projects; running doubt-clearing sessions; evaluating scripts — across seven courses and two national training programmes.</p>
+      <ul class="workshops">
+        <li><b>Navigation, Guidance &amp; Control of UAS</b>
+          Faculty Updation Programme, IIT Bombay. Simulated path-following for ground robots in MATLAB, Python and ROS-Gazebo, then ran hands-on sessions testing those algorithms on JetBots, Crazyflie micro-drones and in simulation — for faculty from engineering institutes across India.</li>
+        <li><b>Modeling &amp; Simulation of UAS</b>
+          Workshop at IIST, Trivandrum · March 2025. Built the tutorials on quadcopter and fixed-wing modelling using MATLAB/Simulink, ROS-Gazebo and FlightGear, and taught ROS fundamentals to participants.</li>
+        <li><b>Student mentoring &amp; subsystem leadership</b>
+          Departmental Academic Mentorship Programme; ADCS subsystem lead for the IITB Student Satellite, where I recruited and led a team of ten and helped set its quality-assurance practice.</li>
+      </ul>
+      <p class="note" style="margin-top:28px">Reviewer for the American Control Conference and IEEE WF-IoT.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PLATES ══════════════════════════ -->
+<section id="plates" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 05</span><span class="dash"></span><span class="meta mono">Figures &amp; hardware</span></div>
+  <h2 class="rv">Plates <span class="alt">from the field</span></h2>
+  <p class="rv" style="max-width:50ch;color:var(--ink-soft);margin:0 0 clamp(26px,3.4vw,42px)">
+    <!-- To fill a plate: replace its <div class="slot">…</div> with <img src="assets/plate-1.jpg" alt="…"> -->
+    Photographs and figures from the vessels, drones and test beds behind the work above.
+  </p>
+
+  <div class="plates rv">
+    <figure class="plate">
+      <div class="slot"><span class="mono">Plate I</span><span style="font-size:.8rem">assets/plate-1.jpg</span></div>
+      <p class="no">Plate I</p>
+      <figcaption class="cap">Iron Fish — the unmanned underwater vehicle test bed.</figcaption>
+    </figure>
+    <figure class="plate">
+      <div class="slot"><span class="mono">Plate II</span><span style="font-size:.8rem">assets/plate-2.jpg</span></div>
+      <p class="no">Plate II</p>
+      <figcaption class="cap">Unmanned surface vessel on trial — docking and approach-angle runs.</figcaption>
+    </figure>
+    <figure class="plate">
+      <div class="slot"><span class="mono">Plate III</span><span style="font-size:.8rem">assets/plate-3.jpg</span></div>
+      <p class="no">Plate III</p>
+      <figcaption class="cap">Fully actuated quadrotor, precision trajectory tracking rig.</figcaption>
+    </figure>
+    <figure class="plate">
+      <div class="slot"><span class="mono">Plate IV</span><span style="font-size:.8rem">assets/plate-4.jpg</span></div>
+      <p class="no">Plate IV</p>
+      <figcaption class="cap">JetBots in leader-driven formation, hands-on session.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ══════════════════════════ HONOURS ══════════════════════════ -->
+<section id="honours" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 06</span><span class="dash"></span><span class="meta mono">Record</span></div>
+  <h2 class="rv">Honours, service &amp; <span class="alt">education</span></h2>
+
+  <div class="about-grid">
+    <div class="rv">
+      <ul class="workshops" style="margin-top:0">
+        <li><b>Ph.D., Aerospace Engineering — IIT Bombay</b>
+          Jul 2023 – present. Guidance and control of autonomous vehicles. Advisors: Prof. Shashi Ranjan Kumar and Prof. Hemendra Arya.</li>
+        <li><b>Dual Degree (B.Tech + M.Tech), Aerospace Engineering — IIT Bombay</b>
+          Jul 2015 – Jun 2020. Minor in Electrical Engineering. B.Tech thesis: decentralized fusion algorithms for multisensor systems. M.Tech thesis: distributed filters with directed-energy weapon systems.</li>
+      </ul>
+      <p class="note" style="margin-top:26px">Member, IEEE &amp; AIAA. Reviewer, ACC and IEEE WF-IoT.</p>
+    </div>
+    <div class="rv">
+      <ul class="awards">
+        <li><span class="yr">2025</span><span>ACC Student Travel Grant — American Automatic Control Council, USA</span></li>
+        <li><span class="yr">2023–</span><span>MHRD Postgraduate Fellowship (Ph.D.); also awarded for M.Tech, 2020</span></li>
+        <li><span class="yr">2018–20</span><span>Foundation For Excellence (FFE) scholarship award</span></li>
+        <li><span class="yr">—</span><span>Merit-cum-Means (MCM) scholarship</span></li>
+        <li><span class="yr">2025</span><span>TA, Workshop on Modeling &amp; Simulation of UAS, IIST Trivandrum</span></li>
+        <li><span class="yr">2023</span><span>Marine Robotics School, CSIR-NIO, Goa</span></li>
+        <li><span class="yr">2023</span><span>Automated Drones for Commercial Application, SIT Pune</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ BEYOND ══════════════════════════ -->
+<section id="beyond" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 07</span><span class="dash"></span><span class="meta mono">Off watch</span></div>
+  <h2 class="rv">Away from <span class="alt">the desk</span></h2>
+
+  <div class="beyond rv">
+    <div class="fnote">
+      <span class="g"><svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="12"/><path d="M6 9c6 4 6 16 0 20M28 9c-6 4-6 16 0 20"/></svg></span>
+      <h4>Tennis</h4>
+      <p>Two semesters of formal training under the National Sports Organisation, and a habit that never quite went away.</p>
+    </div>
+    <div class="fnote">
+      <span class="g"><svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="8" cy="23" r="6"/><circle cx="26" cy="23" r="6"/><path d="M8 23l6-11h7l5 11M14 12l-2-4h5"/></svg></span>
+      <h4>Cycling</h4>
+      <p>Long rides, mostly early, mostly alone — the part of the day where control problems tend to solve themselves.</p>
+    </div>
+    <div class="fnote">
+      <span class="g"><svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="20" cy="7" r="3"/><path d="M18 11l-4 6 5 4 1 8M14 17l-7 2M19 21l7-3"/></svg></span>
+      <h4>Running</h4>
+      <p>Completed the IIT Bombay Half Marathon (Oct 2024). Medals among the top runners in the institute General Championship Cross-country, and a bronze in the postgraduate championship.</p>
+    </div>
+    <div class="fnote">
+      <span class="g"><svg viewBox="0 0 34 34" aria-hidden="true"><path d="M3 27l9-15 5 8 4-6 10 13z"/><path d="M12 12l3 5"/></svg></span>
+      <h4>Trekking</h4>
+      <p>The Sahyadris in monsoon, and anything with enough elevation to make the return leg interesting.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ CONTACT ══════════════════════════ -->
+<section id="contact" class="shell">
+  <div class="s-head rv"><span class="no mono">Log 08</span><span class="dash"></span><span class="meta mono">Soundings</span></div>
+  <h2 class="rv">Get in <span class="alt">touch</span></h2>
+
+  <div class="soundings">
+    <div class="rv">
+      <a class="big-mail" href="mailto:rmverma@iitb.ac.in">rmverma@iitb.ac.in</a>
+      <p style="max-width:44ch;color:var(--ink-soft);margin:26px 0 0">
+        Department of Aerospace Engineering, Indian Institute of Technology Bombay, Powai, Mumbai 400076, India.
+        Open to conversations about postdoctoral positions, collaboration on marine and aerial autonomy, and reviewing.
+      </p>
+    </div>
+    <div class="rv">
+      <ul class="index-links" style="max-width:none">
+        <li><a href="cv.pdf" target="_blank" rel="noopener">Download CV — PDF<span class="arrow">↓</span></a></li>
+        <li><a href="https://scholar.google.com/citations?user=Hp7C3WkAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar<span class="arrow">↗</span></a></li>
+        <li><a href="https://orcid.org/0009-0004-7480-9838" target="_blank" rel="noopener">ORCID 0009-0004-7480-9838<span class="arrow">↗</span></a></li>
+        <li><a href="https://www.researchgate.net/profile/Ram-Milan-Verma-2" target="_blank" rel="noopener">ResearchGate<span class="arrow">↗</span></a></li>
+        <li><a href="https://www.linkedin.com/in/ram-milan-verma/" target="_blank" rel="noopener">LinkedIn<span class="arrow">↗</span></a></li>
+        <li><a href="https://github.com/rm-verma" target="_blank" rel="noopener">GitHub<span class="arrow">↗</span></a></li>
+        <li><a href="https://www.aero.iitb.ac.in/~shashi/index.html" target="_blank" rel="noopener">ISaC Lab, IIT Bombay<span class="arrow">↗</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-row">
+      <span class="mono">© <span id="yr">2026</span> Ram Milan Kumar Verma</span>
+      <span class="mono" style="color:var(--ink-faint)">Set in Fraunces, Spectral &amp; Courier Prime</span>
+      <button class="theme-btn" id="themeBtn" type="button">Day / Night</button>
+    </div>
+  </footer>
+</section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ── generated bathymetric contours ───────────────────────── */
+  (function contours(){
+    var svg = document.getElementById("contours");
+    if(!svg) return;
+    var W = 1000, H = 700, LINES = 16, NS = "http://www.w3.org/2000/svg";
+    // deterministic pseudo-random so the map is the same every visit
+    var seed = 20250916;
+    function rnd(){ seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
+    var waves = [];
+    for(var w = 0; w < 4; w++){
+      waves.push({ amp: 16 + rnd()*40, freq: (0.9 + rnd()*2.6) / W * Math.PI * 2, ph: rnd()*Math.PI*2 });
+    }
+    var frag = document.createDocumentFragment();
+    for(var i = 0; i < LINES; i++){
+      var base = -60 + i * (H + 140) / LINES;
+      var drift = i * 0.42;
+      var d = "", step = 26;
+      for(var x = -40; x <= W + 40; x += step){
+        var y = base;
+        for(var k = 0; k < waves.length; k++){
+          var wv = waves[k];
+          y += wv.amp * Math.sin(x * wv.freq * (1 + k*0.35) + wv.ph + drift * (0.6 + k*0.3))
+                     * (0.45 + 0.55 * Math.sin(i * 0.5 + k));
+        }
+        d += (x === -40 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
+      }
+      var p = document.createElementNS(NS, "path");
+      p.setAttribute("d", d);
+      p.setAttribute("opacity", (0.30 + 0.5 * Math.abs(Math.sin(i * 0.8))).toFixed(2));
+      frag.appendChild(p);
+    }
+    svg.appendChild(frag);
+
+    if(!reduce){
+      var paths = svg.querySelectorAll("path"), ticking = false;
+      window.addEventListener("scroll", function(){
+        if(ticking) return;
+        ticking = true;
+        requestAnimationFrame(function(){
+          var y = window.scrollY;
+          if(y < window.innerHeight * 1.2){
+            for(var i = 0; i < paths.length; i++){
+              paths[i].style.transform = "translateY(" + (y * (0.02 + i * 0.006)).toFixed(1) + "px)";
+            }
+          }
+          ticking = false;
+        });
+      }, {passive:true});
+    }
+  })();
+
+  /* ── reveal on scroll ─────────────────────────────────────── */
+  (function reveal(){
+    var els = document.querySelectorAll(".rv");
+    if(reduce || !("IntersectionObserver" in window)){
+      for(var i=0;i<els.length;i++) els[i].classList.add("in");
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, {rootMargin:"0px 0px -9% 0px", threshold:0.06});
+    for(var j=0;j<els.length;j++) io.observe(els[j]);
+  })();
+
+  /* ── depth-gauge: active section + descending sounder ─────── */
+  (function rail(){
+    var list = document.getElementById("railList");
+    var sounder = document.getElementById("sounder");
+    if(!list) return;
+    var items = list.querySelectorAll("li");
+    var ids = [];
+    for(var i=0;i<items.length;i++){
+      var href = items[i].querySelector("a").getAttribute("href");
+      ids.push(document.querySelector(href));
+    }
+    function paint(){
+      var mid = window.scrollY + window.innerHeight * 0.34, active = -1;
+      for(var i=0;i<ids.length;i++){ if(ids[i] && ids[i].offsetTop <= mid) active = i; }
+      for(var j=0;j<items.length;j++) items[j].classList.toggle("on", j === active);
+      var doc = document.documentElement;
+      var prog = Math.min(1, Math.max(0, window.scrollY / ((doc.scrollHeight - window.innerHeight) || 1)));
+      var railH = window.innerHeight * 0.76;
+      sounder.style.transform = "translateY(" + (prog * railH).toFixed(1) + "px) rotate(45deg)";
+    }
+    var t = false;
+    window.addEventListener("scroll", function(){
+      if(t) return; t = true;
+      requestAnimationFrame(function(){ paint(); t = false; });
+    }, {passive:true});
+    window.addEventListener("resize", paint);
+    paint();
+  })();
+
+  /* ── day / night ──────────────────────────────────────────── */
+  (function theme(){
+    var btn = document.getElementById("themeBtn");
+    var KEY = "rmv-theme";
+    try{ var saved = localStorage.getItem(KEY); if(saved) document.documentElement.setAttribute("data-theme", saved); }catch(e){}
+    btn.addEventListener("click", function(){
+      var cur = document.documentElement.getAttribute("data-theme");
+      if(!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      var next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try{ localStorage.setItem(KEY, next); }catch(e){}
+    });
+  })();
+
+  document.getElementById("yr").textContent = new Date().getFullYear();
+})();
 </script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-	  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-<!-- End MathJax -->
-<script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-2725246-3']);
-_gaq.push(['_trackPageview']);
-(function() {
- var ga = document.createElement('script'); ga.type =
- 'text/javascript'; ga.async = true;
- ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-   : 'http://www') + '.google-analytics.com/ga.js';
- var s = document.getElementsByTagName('script')[0];
- s.parentNode.insertBefore(ga, s);
- })();
-</script>
-<table summary="Table for page layout." id="tlayout">
-<tr valign="top">
-<td id="layout-menu">
-<div class="menu-category">jemdoc</div>
-<div class="menu-item"><a href="index.html" class="current">home</a></div>
-<div class="menu-item"><a href="download.html">download</a></div>
-<div class="menu-item"><a href="revision.html">version/bug&nbsp;info</a></div>
-<div class="menu-item"><a href="contact.html">contact</a></div>
-<div class="menu-category">user's guide</div>
-<div class="menu-item"><a href="using.html">running&nbsp;jemdoc</a></div>
-<div class="menu-item"><a href="example.html">example&nbsp;page</a></div>
-<div class="menu-item"><a href="cheatsheet.html">cheat&nbsp;sheet</a></div>
-<div class="menu-item"><a href="extra.html">extra&nbsp;syntax</a></div>
-<div class="menu-category">configuration</div>
-<div class="menu-item"><a href="htmlchanges.html">html&nbsp;changes</a></div>
-<div class="menu-item"><a href="menu.html">adding&nbsp;a&nbsp;menu</a></div>
-<div class="menu-item"><a href="modelines.html">modelines</a></div>
-<div class="menu-category">goodies</div>
-<div class="menu-item"><a href="stuff.html">vim,&nbsp;make</a></div>
-<div class="menu-item"><a href="latex.html">latex&nbsp;equations</a></div>
-<div class="menu-item"><a href="mathjax.html">mathjax</a></div>
-<div class="menu-item"><a href="tables.html">tables</a></div>
-</td>
-<td id="layout-content">
-<div id="toptitle">
-<h1>Ram Milan Verma &ndash; IIT Bombay</h1>
-<div id="subtitle"><a href="https://rammilan007.github.io/" target=&ldquo;blank&rdquo;>Ram Milan Verma</a> (<a href="mailto:rmverma@iitb.ac.in" target=&ldquo;blank&rdquo;>rmverma@iitb.ac.in</a>)
-</div>
-</div>
-<p>I am Reserach scholar at IIT Bombay. 
-that look something like this one, <a href="http://cvxmod.net/" target=&ldquo;blank&rdquo;>that one</a> or
-<a href="http://www.stanford.edu/class/ee364a/" target=&ldquo;blank&rdquo;>another one</a>.
-</p>
-<p>jemdoc was inspired by <a href="http://www.methods.co.nz/asciidoc/" target=&ldquo;blank&rdquo;>AsciiDoc</a>, which is a
-text document format. AsciiDoc is great, and lots of the ideas from AsciiDoc are
-copied in jemdoc. The main differences are that jemdoc is simpler (you could say
-deliberately feature poor) and has more consistent syntax.
-</p>
-<p><a href="download.html" target=&ldquo;blank&rdquo;>Download jemdoc.</a>
-</p>
-<div class="infoblock">
-<div class="blockcontent">
-<p>Version <tt>0.7.3</tt> was released on 2012-11-27 with some small bug fixes.
-See the <a href="revision.html" target=&ldquo;blank&rdquo;>release notes</a>.
-</p>
-</div></div>
-<p><a href="https://github.com/jem/jemdoc" target=&ldquo;blank&rdquo;>Contribute to jemdoc on github.</a>
-</p>
-<h2>Goals</h2>
-<ul>
-<li><p>Simple, consistent syntax.
-</p>
-</li>
-<li><p>\(\mbox{\LaTeX}\) <a href="latex.html" target=&ldquo;blank&rdquo;>equation support</a>.
-</p>
-</li>
-<li><p><a href="tables.html" target=&ldquo;blank&rdquo;>Table support</a>.
-</p>
-</li>
-<li><p>Portability. The (single) jemdoc <a href="http://www.python.org/" target=&ldquo;blank&rdquo;>Python</a> file +
-single css file + your input file &rarr; html.
-</p>
-</li>
-<li><p>Based on <a href="http://www.w3.org/Style/CSS/" target=&ldquo;blank&rdquo;>CSS</a> so formatting specifics are
-independent of jemdoc.
-</p>
-</li>
-<li><p>Production of clean,
-<a href="http://validator.w3.org/check/referer" target=&ldquo;blank&rdquo;>standards-compliant</a> <a href="http://www.w3.org/TR/xhtml11/" target=&ldquo;blank&rdquo;>XHTML 1.1</a>.
-</p>
-</li>
-<li><p>Minimal bells and whistles, but simple fallback to raw html if required.
-</p>
-</li>
-</ul>
-<h2>License</h2>
-<p>Copyright &copy; 2007&ndash;2012 Jacob Mattingley.
-</p>
-<p>jemdoc is free software; you can redistribute it and/or modify it under the
-terms of the <a href="http://www.gnu.org/licenses/gpl-3.0.html" target=&ldquo;blank&rdquo;>GNU General Public
-License</a> as published by the Free Software Foundation; either version 3 of the
-License, or (at your option) any later version.
-</p>
-<p>jemdoc is distributed in the hope that it will be useful, but WITHOUT ANY
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE. See the <a href="http://www.gnu.org/licenses/gpl-3.0.html" target=&ldquo;blank&rdquo;>GNU
-General Public License</a> for more details.
-</p>
-<table class="imgtable"><tr><td>
-<a href="https://www.baidu.com"><img src="https://jemnz.com/jacobm2.png" alt="Jacob Mattingley" width="120px" height="160px" /></a>&nbsp;</td>
-<td align="left"><p>Tingdi Ren  <img src="../imgs/china.svg" height="13px"> &nbsp;&nbsp; <a href="../files/CV.pdf" target=&ldquo;blank&rdquo;>Curriculem Vitae(CV)</a> <br />
-His github homepage is &nbsp;<a href="https://github.com/TingdiRen" target="&lt;u&gt;blank" title="github" style="text-decoration:none;"><img src="../imgs/github.svg" alt="" height="19px"></a>.
-</p>
-</td></tr></table>
-<div id="footer">
-<div id="footer-text">
-Page generated 2024-10-06 12:51:53 India Standard Time, by <a href="https://github.com/wsshin/jemdoc_mathjax" target="blank">jemdoc+MathJax</a>.
-(<a href="index.jemdoc">source</a>)
-</div>
-</div>
-</td>
-</tr>
-</table>
 </body>
 </html>

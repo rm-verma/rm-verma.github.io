@@ -1,18 +1,54 @@
-# jemdoc+mathjax: make your academic homepage
----
-## QuickStart
-    cd scripts
-    python jemdoc.py
+# rm-verma.github.io
 
-## Parameters
-- -i: the directory of input .jemdoc files, file name included only for single .jemdoc file
-- -o: the directory of output .jemdoc files, file name is not allowed to be included.
-- -c: the path of .conf file
+Personal academic site of **Ram Milan Kumar Verma** — Ph.D. research scholar,
+Department of Aerospace Engineering, IIT Bombay.
 
-## Examples
-    python jemdoc.py -i ./my_jemdocs -o ./my_htmls -c ./mysite.conf
+Live at <https://rm-verma.github.io>
 
-## Tutorial for HTML/Python-Rookie
-[Click here (Lang: CN)](http://blog.adilifer.com/index.php/2023/02/22/%ef%bc%88%e4%bf%9d%e5%a7%86%e7%ba%a7%e6%95%99%e7%a8%8b%ef%bc%89%e5%9f%ba%e4%ba%8ejemdoc%e7%9a%84%e5%ad%a6%e6%9c%af%e4%b8%bb%e9%a1%b5%e5%88%b6%e4%bd%9c/)
+## Structure
 
+    index.html      the entire site — self-contained, no build step
+    404.html        styled not-found page
+    cv.pdf          current CV (linked from the header and the contact section)
+    .nojekyll       tells GitHub Pages to serve files as-is
+    assets/         images
 
+## Editing
+
+Open `index.html` and edit it directly. There is no generator and nothing to
+compile — commit and push, and GitHub Pages redeploys within a minute or two.
+
+Colours live as custom properties on `:root` near the top of the file, with a
+dark-mode block immediately below. Change them in one place and the whole page
+follows.
+
+## Adding images
+
+Drop files into `assets/` using these names and aspect ratios:
+
+| File               | Ratio | Used for                             |
+|--------------------|-------|--------------------------------------|
+| `portrait.jpg`     | 4:5   | portrait in the *Bearing* section    |
+| `plate-1.jpg`      | 4:3   | Iron Fish UUV test bed               |
+| `plate-2.jpg`      | 4:3   | USV on trial                         |
+| `plate-3.jpg`      | 4:3   | fully actuated quadrotor             |
+| `plate-4.jpg`      | 4:3   | JetBots in formation                 |
+
+Then, in `index.html`, replace that slot's placeholder
+
+```html
+<div class="slot">…</div>
+```
+
+with
+
+```html
+<img src="assets/plate-1.jpg" alt="Iron Fish underwater vehicle test bed">
+```
+
+The surrounding frame, caption and rotation are already styled.
+
+## Updating the CV
+
+Replace `cv.pdf` at the repository root. Both links point at it, so nothing
+else needs changing.
