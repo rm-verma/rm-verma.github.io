@@ -378,18 +378,18 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
 /* ── top navigation bar ──────────────────────────────────────────── */
 .topnav{position:fixed;top:0;left:0;right:0;z-index:45;height:80px;background:#053d6e;border-bottom:1px solid rgba(255,255,255,.12)}
 .tnav{max-width:1260px;margin:0 auto;padding:0 clamp(14px,2.5vw,40px);height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.tnav-brand{font-family:var(--display);font-size:2.9rem;font-weight:400;letter-spacing:-.018em;text-decoration:none;color:#ffffff;white-space:nowrap;font-variation-settings:"SOFT" 8,"WONK" 1}
+.tnav-brand{font-family:var(--display);font-size:1.75rem;font-weight:400;letter-spacing:-.018em;text-decoration:none;color:#ffffff;white-space:nowrap;font-variation-settings:"SOFT" 8,"WONK" 1}
 .tnav-links{list-style:none;margin:0;padding:0;display:flex;align-items:center}
-.tnav-links li a{display:block;padding:8px 11px;font-family:var(--mono);font-size:1.26rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.7);transition:color .25s ease}
+.tnav-links li a{display:block;padding:8px 11px;font-family:var(--mono);font-size:.82rem;letter-spacing:.10em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.7);transition:color .25s ease}
 .tnav-links li a:hover,.tnav-links li.on a{color:#ffffff}
 .tnav-right{display:flex;align-items:center;gap:8px;flex:none}
-.tnav-theme{font-family:var(--mono);font-size:1.16rem;letter-spacing:.08em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);padding:6px 12px;cursor:pointer;transition:color .25s ease,border-color .25s ease;white-space:nowrap}
+.tnav-theme{font-family:var(--mono);font-size:.76rem;letter-spacing:.10em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,.3);color:rgba(255,255,255,.6);padding:6px 12px;cursor:pointer;transition:color .25s ease,border-color .25s ease;white-space:nowrap}
 .tnav-theme:hover{color:#ffffff;border-color:#ffffff}
 .tnav-toggle{display:none;background:none;border:1px solid rgba(255,255,255,.3);color:#ffffff;font-size:1.4rem;width:42px;height:42px;cursor:pointer;align-items:center;justify-content:center;flex:none}
 @media(max-width:820px){
   .tnav-links{display:none;position:fixed;top:80px;left:0;right:0;background:#053d6e;border-bottom:1px solid rgba(255,255,255,.12);flex-direction:column;padding:12px var(--gut);gap:2px;z-index:44;overflow-y:auto}
   .tnav-links.open{display:flex}
-  .tnav-links li a{padding:11px 4px;font-size:1.1rem}
+  .tnav-links li a{padding:11px 4px;font-size:.88rem}
   .tnav-toggle{display:flex}
 }
 
@@ -404,11 +404,11 @@ h1 .mid{font-weight:300;font-style:normal;font-size:.44em;color:var(--copper);di
 
 /* ── hero research tags ──────────────────────────────────────── */
 .hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:clamp(18px,2.5vw,28px) 0}
-.hero-tags span{font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;padding:5px 13px;border:1px solid var(--rule);border-radius:2px;color:var(--ink-soft);background:rgba(30,149,253,.06)}
+.hero-tags span{font-family:var(--mono);font-size:.88rem;letter-spacing:.09em;text-transform:uppercase;padding:6px 16px;border:1px solid var(--rule);border-radius:2px;color:var(--ink-soft);background:rgba(30,149,253,.06)}
 
 /* ── hero CTA buttons ────────────────────────────────────────── */
 .hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:clamp(20px,2.8vw,32px) 0}
-.cta-btn{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;text-decoration:none;border-radius:2px;transition:background .25s ease,color .25s ease,border-color .25s ease;display:inline-block}
+.cta-btn{font-family:var(--mono);font-size:.88rem;letter-spacing:.10em;text-transform:uppercase;padding:13px 28px;text-decoration:none;border-radius:2px;transition:background .25s ease,color .25s ease,border-color .25s ease;display:inline-block}
 .cta-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
 .cta-primary:hover{background:var(--copper);border-color:var(--copper);color:#fff}
 .cta-secondary{background:transparent;color:var(--ink);border:1px solid var(--rule)}
@@ -416,7 +416,7 @@ h1 .mid{font-weight:300;font-style:normal;font-size:.44em;color:var(--copper);di
 
 /* ── hero social links ───────────────────────────────────────── */
 .hero-social{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:clamp(14px,2vw,22px);border-top:1px solid var(--rule-soft);padding-top:clamp(14px,2vw,20px)}
-.hero-social a{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;text-decoration:none;color:var(--ink-faint);transition:color .25s ease}
+.hero-social a{font-family:var(--mono);font-size:.84rem;letter-spacing:.09em;text-transform:uppercase;padding:7px 12px;text-decoration:none;color:var(--ink-faint);transition:color .25s ease}
 .hero-social a:hover{color:var(--copper)}
 
 /* ── font size lift for small text ──────────────────────────── */
