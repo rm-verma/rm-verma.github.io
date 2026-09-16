@@ -383,6 +383,39 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
 .rv.in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 
+/* ── scroll progress bar ─────────────────────────────────────── */
+.pgbar{position:fixed;top:0;left:0;right:0;height:2px;z-index:100;background:var(--copper);width:0%;pointer-events:none;will-change:width}
+
+/* ── mobile section nav ──────────────────────────────────────── */
+.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--paper);border-top:1px solid var(--rule);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:env(safe-area-inset-bottom,0)}
+.mob-nav::-webkit-scrollbar{display:none}
+.mob-nav ul{list-style:none;margin:0;padding:0;display:flex;min-width:max-content}
+.mob-nav li a{display:block;padding:11px 15px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;transition:color .25s ease;white-space:nowrap}
+.mob-nav li.on a{color:var(--copper)}
+@media(max-width:900px){.mob-nav{display:block};body{padding-bottom:48px}}
+
+/* ── publication in-progress badge ──────────────────────────── */
+.badge-prep{font-family:var(--mono);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--copper);border-radius:1px;color:var(--copper);opacity:.75;margin-left:8px;vertical-align:middle;display:inline-block}
+
+/* ── compass diagonal arm animation ─────────────────────────── */
+.rose .diag{transform-origin:50px 50px;animation:roseTurn 90s linear infinite}
+@keyframes roseTurn{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.rose .diag{animation:none}}
+
+/* ── micro-interactions ──────────────────────────────────────── */
+.proj li{transition:background .25s ease,padding-left .3s cubic-bezier(.2,.8,.2,1)}
+.proj li:hover{background:var(--paper-2);padding-left:14px}
+.thread .tags li{border-radius:2px;transition:background .25s ease,color .25s ease}
+.thread .tags li:hover{background:var(--paper-2);color:var(--ink)}
+a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
+.fnote{transition:border-top-color .3s ease}
+.fnote:hover{border-top-color:var(--copper)}
+.fnote:hover .g{color:var(--copper)}
+.fnote .g{transition:color .3s ease}
+
+/* ── enhanced waterline ──────────────────────────────────────── */
+.waterline path{transition:opacity .3s ease}
+
 ::selection{background:var(--copper);color:var(--paper)}
 :focus-visible{outline:2px solid var(--copper);outline-offset:3px}
 .skip{position:absolute;left:-9999px;top:0;background:var(--paper);color:var(--ink);padding:12px 18px;z-index:99}
@@ -390,6 +423,7 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
 </style>
 </head>
 <body>
+<div class="pgbar" id="pgbar" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
 <svg class="grain" aria-hidden="true"><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gr)" opacity=".5"/></svg>
@@ -436,7 +470,7 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
         <path class="arm" d="M50 6 L57 50 L50 94 L43 50 Z"/>
         <path class="arm" d="M6 50 L50 43 L94 50 L50 57 Z"/>
         <path class="n" d="M50 6 L57 50 L50 44 Z"/>
-        <path class="arm" d="M21 21 L52 48 L79 79 M79 21 L48 52 L21 79" stroke-width=".7" opacity=".55"/>
+        <path class="arm diag" d="M21 21 L52 48 L79 79 M79 21 L48 52 L21 79" stroke-width=".7" opacity=".55"/>
       </svg>
       <ul class="index-links">
         <li><a href="#contact">Email<span class="arrow">↗</span></a></li>
@@ -597,19 +631,19 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
     <li><div class="entry"><span class="id">J4</span><div>
       <h3 class="ttl">Autonomous Docking of Unmanned Surface Vessel with Stationary and Moving Ships</h3>
       <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
-      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+      <span class="where"><span class="badge-prep">Under preparation</span></span></div></div></li>
     <li><div class="entry"><span class="id">J3</span><div>
       <h3 class="ttl">True-Proportional-Navigation based Time Constrained Guidance of Unmanned Surface Vessel</h3>
       <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
-      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+      <span class="where"><span class="badge-prep">Under preparation</span></span></div></div></li>
     <li><div class="entry"><span class="id">J2</span><div>
       <h3 class="ttl">Trajectory Tracking Control of Surface Vessels with Constrained Input Magnitude and Rate in the Presence of Disturbances</h3>
       <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
-      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+      <span class="where"><span class="badge-prep">Under preparation</span></span></div></div></li>
     <li><div class="entry"><span class="id">J1</span><div>
       <h3 class="ttl">Barrier Lyapunov Function-based Controller for Surface Vessels with Motion Constraints</h3>
       <span class="who"><b>R. M. K. Verma</b>, S. R. Kumar, H. Arya</span>
-      <span class="where"><span class="state">Under preparation</span></span></div></div></li>
+      <span class="where"><span class="badge-prep">Under preparation</span></span></div></div></li>
   </ul>
 
   <div class="ledger-head rv"><span class="mono">Conference proceedings</span><span class="r"></span><span class="mono" style="color:var(--ink-faint)">06</span></div>
@@ -895,6 +929,20 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
 
 </main>
 
+<nav class="mob-nav" aria-label="Section navigation">
+  <ul id="mobNavList">
+    <li><a href="#bearing">00 · Bearing</a></li>
+    <li><a href="#research">01 · Research</a></li>
+    <li><a href="#papers">02 · Papers</a></li>
+    <li><a href="#projects">03 · Projects</a></li>
+    <li><a href="#teaching">04 · Teaching</a></li>
+    <li><a href="#plates">05 · Plates</a></li>
+    <li><a href="#honours">06 · Honours</a></li>
+    <li><a href="#beyond">07 · Beyond</a></li>
+    <li><a href="#contact">08 · Contact</a></li>
+  </ul>
+</nav>
+
 <script>
 (function(){
   "use strict";
@@ -1010,6 +1058,42 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
   })();
 
   document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* ── scroll progress bar ─────────────────────────────────────── */
+  (function pgbar(){
+    var bar = document.getElementById("pgbar");
+    if(!bar) return;
+    function update(){
+      var doc = document.documentElement;
+      var pct = window.scrollY / ((doc.scrollHeight - window.innerHeight) || 1) * 100;
+      bar.style.width = Math.min(100,pct).toFixed(1) + "%";
+    }
+    window.addEventListener("scroll", update, {passive:true});
+    update();
+  })();
+
+  /* ── mobile nav active-section sync ─────────────────────────── */
+  (function mobnav(){
+    var list = document.getElementById("mobNavList");
+    if(!list) return;
+    var items = list.querySelectorAll("li");
+    var sections = [];
+    for(var i=0;i<items.length;i++){
+      var href = items[i].querySelector("a").getAttribute("href");
+      sections.push(document.querySelector(href));
+    }
+    function paint(){
+      var mid = window.scrollY + window.innerHeight * 0.34, active = -1;
+      for(var i=0;i<sections.length;i++){ if(sections[i] && sections[i].offsetTop <= mid) active = i; }
+      for(var j=0;j<items.length;j++) items[j].classList.toggle("on", j === active);
+      if(active >= 0){
+        try{ items[active].querySelector("a").scrollIntoView({block:"nearest",inline:"center",behavior:"instant"}); }catch(e){}
+      }
+    }
+    window.addEventListener("scroll", function(){requestAnimationFrame(paint);}, {passive:true});
+    paint();
+  })();
+
 })();
 </script>
 </body>
