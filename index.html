@@ -28,7 +28,7 @@
   --ink-faint:#6b9cc4;
   --sea:#1e95fd;
   --sea-deep:#0d56c9;
-  --copper:#fdbb1e;
+  --copper:#0d56c9;
   --rule:rgba(5,61,110,.14);
   --rule-soft:rgba(5,61,110,.07);
   --contour:rgba(30,149,253,.22);
@@ -40,7 +40,6 @@
   --mono:"Courier Prime","Courier New",monospace;
 
   --gut:clamp(18px,4.2vw,64px);
-  --rail:74px;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
@@ -52,7 +51,7 @@
     --ink-faint:#4f84a8;
     --sea:#4aacff;
     --sea-deep:#7dc5ff;
-    --copper:#fdbb1e;
+    --copper:#60c6ff;
     --rule:rgba(218,238,255,.14);
     --rule-soft:rgba(218,238,255,.07);
     --contour:rgba(74,172,255,.20);
@@ -63,7 +62,7 @@
 :root[data-theme="dark"]{
   --paper:#061828; --paper-2:#0c2240; --paper-3:#102b52;
   --ink:#daeeff; --ink-soft:#8ab8d8; --ink-faint:#4f84a8;
-  --sea:#4aacff; --sea-deep:#7dc5ff; --copper:#fdbb1e;
+  --sea:#4aacff; --sea-deep:#7dc5ff; --copper:#60c6ff;
   --rule:rgba(218,238,255,.14); --rule-soft:rgba(218,238,255,.07);
   --contour:rgba(74,172,255,.20); --tape:rgba(74,172,255,.12);
   --shadow:rgba(0,0,0,.55);
@@ -99,74 +98,20 @@ h1,h2,h3,h4{font-family:var(--display);font-weight:400;margin:0;line-height:1.02
 .mono{font-family:var(--mono);font-size:.7rem;letter-spacing:.17em;text-transform:uppercase}
 a{color:inherit}
 
-/* ── depth-gauge rail (nav) ─────────────────────────────────── */
-.rail{
-  position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:40;
-  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
-  padding-left:clamp(10px,1.6vw,22px);pointer-events:none;
-}
-.rail::before{
-  content:"";position:absolute;left:clamp(10px,1.6vw,22px);top:12vh;bottom:12vh;
-  width:1px;background:var(--rule);
-}
-.rail ol{list-style:none;margin:0;padding:0;position:relative;pointer-events:auto}
-.rail li{position:relative;height:38px;display:flex;align-items:center}
-.rail a{
-  display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink-faint);
-  transition:color .35s ease;
-}
-.rail .tick{display:block;height:1px;width:10px;background:currentColor;transition:width .38s cubic-bezier(.2,.8,.2,1)}
-.rail .lbl{
-  font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
-  opacity:0;transform:translateX(-4px);transition:opacity .35s ease,transform .35s ease;white-space:nowrap;
-}
-.rail a:hover,.rail a:focus-visible{color:var(--ink)}
-.rail a:hover .tick,.rail a:focus-visible .tick{width:24px}
-.rail a:hover .lbl,.rail a:focus-visible .lbl{opacity:1;transform:none}
-.rail li.on a{color:var(--copper)}
-.rail li.on .tick{width:30px}
-.rail li.on .lbl{opacity:1;transform:none}
-/* the descending sounding marker */
-.sounder{
-  position:absolute;left:calc(clamp(10px,1.6vw,22px) - 3px);top:12vh;
-  width:7px;height:7px;border:1px solid var(--copper);background:var(--paper);
-  transform:rotate(45deg);transition:transform .1s linear;
-}
-@media (max-width:900px){.rail{display:none}}
-
 /* ── shell ──────────────────────────────────────────────────── */
 .shell{max-width:1260px;margin:0 auto;padding:0 var(--gut) 0 var(--gut)}
-@media (min-width:901px){.shell{padding-left:calc(var(--rail) + var(--gut) * .4)}}
 
 /* ── hero ───────────────────────────────────────────────────── */
-.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:14vh 0 10vh;overflow:hidden}
-.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(34px,5vw,64px);width:100%}
-@media (min-width:860px){.hero-grid{grid-template-columns:minmax(0,1.62fr) minmax(210px,.68fr);align-items:end}}
-
-/* hero text backdrop — readable over animated birds */
-.hero-text-wrap{
-  background:rgba(255,255,255,0.72);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-  border:1px solid rgba(30,149,253,.18);
-  border-radius:6px;padding:clamp(20px,3vw,38px) clamp(24px,3.5vw,46px);
-}
-.aside-hero-wrap{
-  background:rgba(255,255,255,0.65);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(30,149,253,.15);
-  border-radius:6px;padding:clamp(18px,2.5vw,30px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]) .hero-text-wrap{background:rgba(6,24,40,0.76);border-color:rgba(74,172,255,.18)}
-  :root:not([data-theme="light"]) .aside-hero-wrap{background:rgba(6,24,40,0.70);border-color:rgba(74,172,255,.15)}
-}
-:root[data-theme="dark"] .hero-text-wrap{background:rgba(6,24,40,0.76);border-color:rgba(74,172,255,.18)}
-:root[data-theme="dark"] .aside-hero-wrap{background:rgba(6,24,40,0.70);border-color:rgba(74,172,255,.15)}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;padding:clamp(70px,10vw,100px) var(--gut) clamp(50px,7vw,80px);text-align:center;overflow:hidden}
+.hero-inner{position:relative;z-index:1;width:100%;max-width:860px}
+.hero-glass{background:rgba(255,255,255,0.80);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(30,149,253,.18);border-radius:8px;padding:clamp(30px,4.5vw,54px) clamp(28px,5vw,60px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero-glass{background:rgba(6,24,40,0.80);border-color:rgba(74,172,255,.18)}}
+:root[data-theme="dark"] .hero-glass{background:rgba(6,24,40,0.80);border-color:rgba(74,172,255,.18)}
 
 /* Vanta full-page background; sections get opaque paper bg */
 #vanta-bg{position:fixed;inset:0;z-index:-1}
-body{background:transparent}
-section,footer{background:var(--paper)}
+body{background:transparent;padding-top:58px}
+section{background:var(--paper)} footer{background:var(--paper)}
 
 .station{display:flex;flex-wrap:wrap;align-items:baseline;gap:.55rem 1.1rem;color:var(--sea);margin-bottom:clamp(20px,3.4vw,38px)}
 .station .dot{width:5px;height:5px;background:var(--copper);border-radius:50%;display:inline-block;transform:translateY(-2px)}
@@ -410,13 +355,6 @@ footer{border-top:1px solid var(--rule);padding:30px 0 42px;margin-top:clamp(50p
 /* ── scroll progress bar ─────────────────────────────────────── */
 .pgbar{position:fixed;top:0;left:0;right:0;height:2px;z-index:100;background:var(--copper);width:0%;pointer-events:none;will-change:width}
 
-/* ── mobile section nav ──────────────────────────────────────── */
-.mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:50;background:var(--paper);border-top:1px solid var(--rule);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:env(safe-area-inset-bottom,0)}
-.mob-nav::-webkit-scrollbar{display:none}
-.mob-nav ul{list-style:none;margin:0;padding:0;display:flex;min-width:max-content}
-.mob-nav li a{display:block;padding:11px 15px;font-family:var(--mono);font-size:.55rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-faint);text-decoration:none;transition:color .25s ease;white-space:nowrap}
-.mob-nav li.on a{color:var(--copper)}
-@media(max-width:900px){.mob-nav{display:block};body{padding-bottom:48px}}
 
 /* ── publication in-progress badge ──────────────────────────── */
 .badge-prep{font-family:var(--mono);font-size:.5rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--copper);border-radius:1px;color:var(--copper);opacity:.75;margin-left:8px;vertical-align:middle;display:inline-block}
@@ -437,6 +375,68 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
 .fnote:hover .g{color:var(--copper)}
 .fnote .g{transition:color .3s ease}
 
+/* ── top navigation bar ──────────────────────────────────────────── */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:45;height:58px;background:rgba(255,255,255,0.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .topnav{background:rgba(6,24,40,0.94)}}
+:root[data-theme="dark"] .topnav{background:rgba(6,24,40,0.94)}
+.tnav{max-width:1260px;margin:0 auto;padding:0 clamp(14px,2.5vw,40px);height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tnav-brand{font-family:var(--display);font-size:1.02rem;font-weight:400;letter-spacing:-.015em;text-decoration:none;color:var(--ink);white-space:nowrap;font-variation-settings:"SOFT" 8,"WONK" 1}
+.tnav-links{list-style:none;margin:0;padding:0;display:flex;align-items:center}
+.tnav-links li a{display:block;padding:8px 11px;font-family:var(--mono);font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;color:var(--ink-soft);transition:color .25s ease}
+.tnav-links li a:hover,.tnav-links li.on a{color:var(--copper)}
+.tnav-right{display:flex;align-items:center;gap:8px;flex:none}
+.tnav-theme{font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;background:none;border:1px solid var(--rule);color:var(--ink-faint);padding:5px 10px;cursor:pointer;transition:color .25s ease,border-color .25s ease;white-space:nowrap}
+.tnav-theme:hover{color:var(--copper);border-color:var(--copper)}
+.tnav-toggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);font-size:1.1rem;width:34px;height:34px;cursor:pointer;align-items:center;justify-content:center;flex:none}
+@media(max-width:820px){
+  .tnav-links{display:none;position:fixed;top:58px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--rule);flex-direction:column;padding:12px var(--gut);gap:2px;z-index:44;overflow-y:auto}
+  .tnav-links.open{display:flex}
+  .tnav-links li a{padding:11px 4px;font-size:.68rem}
+  .tnav-toggle{display:flex}
+}
+
+/* ── hero interior elements ──────────────────────────────────── */
+.station{justify-content:center;margin-bottom:clamp(16px,2.2vw,26px)}
+h1{font-size:clamp(2.8rem,8.5vw,6.8rem);text-align:center}
+h1 .given,.h1-name{display:inline;font-weight:300;color:var(--ink)}
+h1 .family{display:inline;font-weight:500;font-style:italic;color:var(--sea-deep);margin-left:.12em}
+h1 .mid{font-weight:300;font-style:normal;font-size:.44em;color:var(--copper);display:inline-block;transform:translateY(-.42em);letter-spacing:.02em;margin-right:.08em}
+.lede{text-align:center;max-width:none;margin:clamp(14px,2vw,22px) 0}
+
+/* ── hero research tags ──────────────────────────────────────── */
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:clamp(18px,2.5vw,28px) 0}
+.hero-tags span{font-family:var(--mono);font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;padding:5px 13px;border:1px solid var(--rule);border-radius:2px;color:var(--ink-soft);background:rgba(30,149,253,.06)}
+
+/* ── hero CTA buttons ────────────────────────────────────────── */
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:clamp(20px,2.8vw,32px) 0}
+.cta-btn{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;text-decoration:none;border-radius:2px;transition:background .25s ease,color .25s ease,border-color .25s ease;display:inline-block}
+.cta-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink)}
+.cta-primary:hover{background:var(--copper);border-color:var(--copper);color:#fff}
+.cta-secondary{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+.cta-secondary:hover{color:var(--copper);border-color:var(--copper)}
+
+/* ── hero social links ───────────────────────────────────────── */
+.hero-social{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:clamp(14px,2vw,22px);border-top:1px solid var(--rule-soft);padding-top:clamp(14px,2vw,20px)}
+.hero-social a{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;text-decoration:none;color:var(--ink-faint);transition:color .25s ease}
+.hero-social a:hover{color:var(--copper)}
+
+/* ── font size lift for small text ──────────────────────────── */
+.mono{font-size:.75rem}
+.entry .where{font-size:.73rem}
+.entry .id{font-size:.73rem}
+.thread .tags li{font-size:.67rem}
+.manifest th{font-size:.65rem}
+.awards .yr{font-size:.68rem}
+.badge-prep{font-size:.6rem}
+.fig cap,.fig .cap{font-size:.65rem}
+.plate .no{font-size:.63rem}
+.workshops li{font-size:.96rem}
+.fnote p{font-size:.94rem}
+
+/* ── section visual rhythm ───────────────────────────────────── */
+section{border-top:1px solid var(--rule-soft)}
+section:first-child{border-top:none}
+
 /* ── enhanced waterline ──────────────────────────────────────── */
 .waterline path{transition:opacity .3s ease}
 
@@ -449,29 +449,33 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
 <body>
 <div id="vanta-bg" aria-hidden="true"></div>
 <div class="pgbar" id="pgbar" aria-hidden="true"></div>
+<nav class="topnav" id="topnav" aria-label="Main navigation">
+  <div class="tnav">
+    <a class="tnav-brand" href="#bearing">Ram Milan Kumar Verma</a>
+    <ul class="tnav-links" id="tnavLinks">
+      <li><a href="#bearing">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#papers">Papers</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#honours">Honours</a></li>
+      <li><a href="#beyond">Beyond</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="tnav-right">
+      <button class="tnav-theme" id="themeBtn" type="button">Day / Night</button>
+      <button class="tnav-toggle" id="navToggle" type="button" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
 <a class="skip" href="#main">Skip to content</a>
 
 <svg class="grain" aria-hidden="true"><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#gr)" opacity=".5"/></svg>
 
-<nav class="rail" aria-label="Section index">
-  <ol id="railList">
-    <li><a href="#bearing"><span class="tick"></span><span class="lbl">Bearing</span></a></li>
-    <li><a href="#research"><span class="tick"></span><span class="lbl">Research</span></a></li>
-    <li><a href="#papers"><span class="tick"></span><span class="lbl">Papers</span></a></li>
-    <li><a href="#projects"><span class="tick"></span><span class="lbl">Projects</span></a></li>
-    <li><a href="#teaching"><span class="tick"></span><span class="lbl">Teaching</span></a></li>
-    <li><a href="#plates"><span class="tick"></span><span class="lbl">Plates</span></a></li>
-    <li><a href="#honours"><span class="tick"></span><span class="lbl">Honours</span></a></li>
-    <li><a href="#beyond"><span class="tick"></span><span class="lbl">Off-watch</span></a></li>
-    <li><a href="#contact"><span class="tick"></span><span class="lbl">Contact</span></a></li>
-  </ol>
-  <span class="sounder" id="sounder" aria-hidden="true"></span>
-</nav>
-
 <!-- ══════════════════════════ HERO ══════════════════════════ -->
 <header class="hero">
-  <div class="shell hero-grid">
-    <div class="hero-text-wrap">
+  <div class="hero-inner">
+    <div class="hero-glass">
       <p class="station mono">
         <span>19°08′N 72°54′E</span><span class="dot"></span>
         <span>IIT Bombay</span><span class="dot"></span>
@@ -479,32 +483,33 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
       </p>
       <h1>
         <span class="given">Ram Milan</span>
-        <span class="family"><span class="mid">K.</span>Verma</span>
+        <span class="mid"> K. </span><span class="family">Verma</span>
       </h1>
       <p class="lede">
         Ph.D. researcher in <em>guidance and control</em> — teaching vessels, aircraft and
         underwater craft to hold a line under constraint, disturbance and a deadline.
       </p>
-    </div>
-
-    <div class="aside-hero aside-hero-wrap">
-      <svg class="rose" viewBox="0 0 100 100" aria-hidden="true">
-        <circle class="ring" cx="50" cy="50" r="40"/>
-        <circle class="ring" cx="50" cy="50" r="30"/>
-        <path class="arm" d="M50 6 L57 50 L50 94 L43 50 Z"/>
-        <path class="arm" d="M6 50 L50 43 L94 50 L50 57 Z"/>
-        <path class="n" d="M50 6 L57 50 L50 44 Z"/>
-        <path class="arm diag" d="M21 21 L52 48 L79 79 M79 21 L48 52 L21 79" stroke-width=".7" opacity=".55"/>
-      </svg>
-      <ul class="index-links">
-        <li><a href="#contact">Email<span class="arrow">↗</span></a></li>
-        <li><a href="https://scholar.google.com/citations?user=Hp7C3WkAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar<span class="arrow">↗</span></a></li>
-        <li><a href="https://orcid.org/0009-0004-7480-9838" target="_blank" rel="noopener">ORCID<span class="arrow">↗</span></a></li>
-        <li><a href="https://www.researchgate.net/profile/Ram-Milan-Verma-2" target="_blank" rel="noopener">ResearchGate<span class="arrow">↗</span></a></li>
-        <li><a href="https://www.linkedin.com/in/ram-milan-verma/" target="_blank" rel="noopener">LinkedIn<span class="arrow">↗</span></a></li>
-        <li><a href="https://github.com/rm-verma" target="_blank" rel="noopener">GitHub<span class="arrow">↗</span></a></li>
-        <li><a href="cv.pdf" target="_blank" rel="noopener">Curriculum Vitae — PDF<span class="arrow">↓</span></a></li>
-      </ul>
+      <div class="hero-tags">
+        <span>Unmanned Surface Vessels</span>
+        <span>UAV &amp; Quadrotor</span>
+        <span>Guidance &amp; Control</span>
+        <span>Path Following</span>
+        <span>Barrier Lyapunov Methods</span>
+        <span>Autonomous Docking</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="#papers" class="cta-btn cta-primary">View Publications</a>
+        <a href="cv.pdf" class="cta-btn cta-secondary" target="_blank" rel="noopener">Download CV</a>
+        <a href="#contact" class="cta-btn cta-secondary">Get in Touch</a>
+      </div>
+      <div class="hero-social">
+        <a href="mailto:rmverma@iitb.ac.in">Email</a>
+        <a href="https://scholar.google.com/citations?user=Hp7C3WkAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
+        <a href="https://orcid.org/0009-0004-7480-9838" target="_blank" rel="noopener">ORCID</a>
+        <a href="https://www.researchgate.net/profile/Ram-Milan-Verma-2" target="_blank" rel="noopener">ResearchGate</a>
+        <a href="https://www.linkedin.com/in/ram-milan-verma/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/rm-verma" target="_blank" rel="noopener">GitHub</a>
+      </div>
     </div>
   </div>
 </header>
@@ -982,26 +987,12 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
     <div class="foot-row">
       <span class="mono">© <span id="yr">2026</span> Ram Milan Kumar Verma</span>
       <span class="mono" style="color:var(--ink-faint)">Set in Fraunces, Spectral &amp; Courier Prime</span>
-      <button class="theme-btn" id="themeBtn" type="button">Day / Night</button>
     </div>
   </footer>
 </section>
 
 </main>
 
-<nav class="mob-nav" aria-label="Section navigation">
-  <ul id="mobNavList">
-    <li><a href="#bearing">00 · Bearing</a></li>
-    <li><a href="#research">01 · Research</a></li>
-    <li><a href="#papers">02 · Papers</a></li>
-    <li><a href="#projects">03 · Projects</a></li>
-    <li><a href="#teaching">04 · Teaching</a></li>
-    <li><a href="#plates">05 · Plates</a></li>
-    <li><a href="#honours">06 · Honours</a></li>
-    <li><a href="#beyond">07 · Beyond</a></li>
-    <li><a href="#contact">08 · Contact</a></li>
-  </ul>
-</nav>
 
 <script>
 (function(){
@@ -1021,35 +1012,6 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
       });
     }, {rootMargin:"0px 0px -9% 0px", threshold:0.06});
     for(var j=0;j<els.length;j++) io.observe(els[j]);
-  })();
-
-  /* ── depth-gauge: active section + descending sounder ─────── */
-  (function rail(){
-    var list = document.getElementById("railList");
-    var sounder = document.getElementById("sounder");
-    if(!list) return;
-    var items = list.querySelectorAll("li");
-    var ids = [];
-    for(var i=0;i<items.length;i++){
-      var href = items[i].querySelector("a").getAttribute("href");
-      ids.push(document.querySelector(href));
-    }
-    function paint(){
-      var mid = window.scrollY + window.innerHeight * 0.34, active = -1;
-      for(var i=0;i<ids.length;i++){ if(ids[i] && ids[i].offsetTop <= mid) active = i; }
-      for(var j=0;j<items.length;j++) items[j].classList.toggle("on", j === active);
-      var doc = document.documentElement;
-      var prog = Math.min(1, Math.max(0, window.scrollY / ((doc.scrollHeight - window.innerHeight) || 1)));
-      var railH = window.innerHeight * 0.76;
-      sounder.style.transform = "translateY(" + (prog * railH).toFixed(1) + "px) rotate(45deg)";
-    }
-    var t = false;
-    window.addEventListener("scroll", function(){
-      if(t) return; t = true;
-      requestAnimationFrame(function(){ paint(); t = false; });
-    }, {passive:true});
-    window.addEventListener("resize", paint);
-    paint();
   })();
 
   /* ── day / night ──────────────────────────────────────────── */
@@ -1081,11 +1043,12 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
     update();
   })();
 
-  /* ── mobile nav active-section sync ─────────────────────────── */
-  (function mobnav(){
-    var list = document.getElementById("mobNavList");
-    if(!list) return;
-    var items = list.querySelectorAll("li");
+  /* ── top nav: active section + hamburger ─────────────────── */
+  (function tnav(){
+    var nav = document.getElementById("tnavLinks");
+    var toggle = document.getElementById("navToggle");
+    if(!nav) return;
+    var items = nav.querySelectorAll("li");
     var sections = [];
     for(var i=0;i<items.length;i++){
       var href = items[i].querySelector("a").getAttribute("href");
@@ -1095,12 +1058,22 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
       var mid = window.scrollY + window.innerHeight * 0.34, active = -1;
       for(var i=0;i<sections.length;i++){ if(sections[i] && sections[i].offsetTop <= mid) active = i; }
       for(var j=0;j<items.length;j++) items[j].classList.toggle("on", j === active);
-      if(active >= 0){
-        try{ items[active].querySelector("a").scrollIntoView({block:"nearest",inline:"center",behavior:"instant"}); }catch(e){}
-      }
     }
     window.addEventListener("scroll", function(){requestAnimationFrame(paint);}, {passive:true});
+    window.addEventListener("resize", paint);
     paint();
+    if(toggle){
+      toggle.addEventListener("click", function(){
+        nav.classList.toggle("open");
+        toggle.textContent = nav.classList.contains("open") ? "✕" : "☰";
+      });
+      nav.querySelectorAll("a").forEach(function(a){
+        a.addEventListener("click", function(){
+          nav.classList.remove("open");
+          toggle.textContent = "☰";
+        });
+      });
+    }
   })();
 
 })();
