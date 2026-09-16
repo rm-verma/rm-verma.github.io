@@ -140,10 +140,33 @@ a{color:inherit}
 
 /* ── hero ───────────────────────────────────────────────────── */
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:14vh 0 10vh;overflow:hidden}
-#contours{position:absolute;inset:-5% -10% 0 -10%;width:120%;height:105%;z-index:0;pointer-events:none}
-#contours path{fill:none;stroke:var(--contour);stroke-width:.85;vector-effect:non-scaling-stroke}
 .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(34px,5vw,64px);width:100%}
 @media (min-width:860px){.hero-grid{grid-template-columns:minmax(0,1.62fr) minmax(210px,.68fr);align-items:end}}
+
+/* hero text backdrop — readable over animated birds */
+.hero-text-wrap{
+  background:rgba(255,255,255,0.72);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid rgba(30,149,253,.18);
+  border-radius:6px;padding:clamp(20px,3vw,38px) clamp(24px,3.5vw,46px);
+}
+.aside-hero-wrap{
+  background:rgba(255,255,255,0.65);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(30,149,253,.15);
+  border-radius:6px;padding:clamp(18px,2.5vw,30px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .hero-text-wrap{background:rgba(6,24,40,0.76);border-color:rgba(74,172,255,.18)}
+  :root:not([data-theme="light"]) .aside-hero-wrap{background:rgba(6,24,40,0.70);border-color:rgba(74,172,255,.15)}
+}
+:root[data-theme="dark"] .hero-text-wrap{background:rgba(6,24,40,0.76);border-color:rgba(74,172,255,.18)}
+:root[data-theme="dark"] .aside-hero-wrap{background:rgba(6,24,40,0.70);border-color:rgba(74,172,255,.15)}
+
+/* Vanta full-page background; sections get opaque paper bg */
+#vanta-bg{position:fixed;inset:0;z-index:-1}
+body{background:transparent}
+section,footer{background:var(--paper)}
 
 .station{display:flex;flex-wrap:wrap;align-items:baseline;gap:.55rem 1.1rem;color:var(--sea);margin-bottom:clamp(20px,3.4vw,38px)}
 .station .dot{width:5px;height:5px;background:var(--copper);border-radius:50%;display:inline-block;transform:translateY(-2px)}
@@ -424,6 +447,7 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
 </style>
 </head>
 <body>
+<div id="vanta-bg" aria-hidden="true"></div>
 <div class="pgbar" id="pgbar" aria-hidden="true"></div>
 <a class="skip" href="#main">Skip to content</a>
 
@@ -446,9 +470,8 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
 
 <!-- ══════════════════════════ HERO ══════════════════════════ -->
 <header class="hero">
-  <svg id="contours" aria-hidden="true" preserveAspectRatio="none" viewBox="0 0 1000 700"></svg>
   <div class="shell hero-grid">
-    <div>
+    <div class="hero-text-wrap">
       <p class="station mono">
         <span>19°08′N 72°54′E</span><span class="dot"></span>
         <span>IIT Bombay</span><span class="dot"></span>
@@ -464,7 +487,7 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
       </p>
     </div>
 
-    <div class="aside-hero">
+    <div class="aside-hero aside-hero-wrap">
       <svg class="rose" viewBox="0 0 100 100" aria-hidden="true">
         <circle class="ring" cx="50" cy="50" r="40"/>
         <circle class="ring" cx="50" cy="50" r="30"/>
@@ -949,57 +972,6 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
   "use strict";
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ── generated bathymetric contours ───────────────────────── */
-  (function contours(){
-    var svg = document.getElementById("contours");
-    if(!svg) return;
-    var W = 1000, H = 700, LINES = 16, NS = "http://www.w3.org/2000/svg";
-    // deterministic pseudo-random so the map is the same every visit
-    var seed = 20250916;
-    function rnd(){ seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }
-    var waves = [];
-    for(var w = 0; w < 4; w++){
-      waves.push({ amp: 16 + rnd()*40, freq: (0.9 + rnd()*2.6) / W * Math.PI * 2, ph: rnd()*Math.PI*2 });
-    }
-    var frag = document.createDocumentFragment();
-    for(var i = 0; i < LINES; i++){
-      var base = -60 + i * (H + 140) / LINES;
-      var drift = i * 0.42;
-      var d = "", step = 26;
-      for(var x = -40; x <= W + 40; x += step){
-        var y = base;
-        for(var k = 0; k < waves.length; k++){
-          var wv = waves[k];
-          y += wv.amp * Math.sin(x * wv.freq * (1 + k*0.35) + wv.ph + drift * (0.6 + k*0.3))
-                     * (0.45 + 0.55 * Math.sin(i * 0.5 + k));
-        }
-        d += (x === -40 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
-      }
-      var p = document.createElementNS(NS, "path");
-      p.setAttribute("d", d);
-      p.setAttribute("opacity", (0.30 + 0.5 * Math.abs(Math.sin(i * 0.8))).toFixed(2));
-      frag.appendChild(p);
-    }
-    svg.appendChild(frag);
-
-    if(!reduce){
-      var paths = svg.querySelectorAll("path"), ticking = false;
-      window.addEventListener("scroll", function(){
-        if(ticking) return;
-        ticking = true;
-        requestAnimationFrame(function(){
-          var y = window.scrollY;
-          if(y < window.innerHeight * 1.2){
-            for(var i = 0; i < paths.length; i++){
-              paths[i].style.transform = "translateY(" + (y * (0.02 + i * 0.006)).toFixed(1) + "px)";
-            }
-          }
-          ticking = false;
-        });
-      }, {passive:true});
-    }
-  })();
-
   /* ── reveal on scroll ─────────────────────────────────────── */
   (function reveal(){
     var els = document.querySelectorAll(".rv");
@@ -1095,6 +1067,61 @@ a.entry:hover,a.entry:focus-visible{box-shadow:inset 3px 0 0 var(--copper)}
     paint();
   })();
 
+})();
+</script>
+<!-- Vanta.js birds animated background -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.birds.min.js"></script>
+<script>
+(function(){
+  if(typeof VANTA === "undefined" || typeof THREE === "undefined") return;
+
+  var effect = null;
+
+  function isDark(){
+    var t = document.documentElement.getAttribute("data-theme");
+    if(t) return t === "dark";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+
+  function hexN(hex){ return parseInt(hex.replace("#",""), 16); }
+
+  function initVanta(){
+    if(effect){ try{ effect.destroy(); }catch(e){} effect = null; }
+    var dark = isDark();
+    effect = VANTA.BIRDS({
+      el: "#vanta-bg",
+      THREE: THREE,
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200,
+      minWidth: 200,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      backgroundColor: dark ? 0x061828 : 0xffffff,
+      color1: dark ? 0x4aacff : 0x1e95fd,
+      color2: dark ? 0xfdbb1e : 0x053d6e,
+      colorMode: "variance",
+      birdSize: 1.30,
+      wingSpan: 28.00,
+      speedLimit: 4.00,
+      separation: 52.00,
+      alignment: 55.00,
+      cohesion: 50.00,
+      quantity: 3
+    });
+  }
+
+  /* skip if user prefers reduced motion */
+  if(!window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    initVanta();
+    /* reinit when day/night toggled */
+    new MutationObserver(initVanta)
+      .observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+    /* reinit if OS colour scheme changes */
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", initVanta);
+  }
 })();
 </script>
 </body>
